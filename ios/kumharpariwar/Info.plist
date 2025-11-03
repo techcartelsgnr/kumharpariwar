@@ -34,7 +34,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>RCTNewArchEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -51,5 +51,25 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Baloo2-Bold.ttf</string>
+		<string>Baloo2-Medium.ttf</string>
+		<string>Baloo2-Regular.ttf</string>
+		<string>ClashDisplay-Bold.ttf</string>
+		<string>ClashDisplay-Medium.ttf</string>
+		<string>ClashDisplay-Regular.ttf</string>
+		<string>Hind-Bold.ttf</string>
+		<string>Hind-Medium.ttf</string>
+		<string>Hind-SemiBold.ttf</string>
+		<string>OleoScript-Bold.ttf</string>
+		<string>OleoScript-Regular.ttf</string>
+		<string>ProtestRiot-Regular.ttf</string>
+		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+		<string>TiroDevanagariHindi-Italic.ttf</string>
+		<string>TiroDevanagariHindi-Regular.ttf</string>
+	</array>
 </dict>
 </plist>

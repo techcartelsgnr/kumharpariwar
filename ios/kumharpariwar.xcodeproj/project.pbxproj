@@ -12,6 +12,23 @@
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8E406FA55030CF4138939E40 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
+		D1855A7B1B534472BA333CF9 /* Baloo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B5323378C7041E18FBCC1B7 /* Baloo2-Bold.ttf */; };
+		0DE48F13EA894038B860606E /* Baloo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D270B2A8DD5244FF9B9321F9 /* Baloo2-Medium.ttf */; };
+		8685091554D942BBBAB1E59C /* Baloo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A2B8B19CC3D444EBE2D0C62 /* Baloo2-Regular.ttf */; };
+		9FA315CF8DC747C693862FC0 /* ClashDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D998798E427D43558F746974 /* ClashDisplay-Bold.ttf */; };
+		F27AA8B7F4BB4A42A304F399 /* ClashDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE3E35DE495F4637AC337F15 /* ClashDisplay-Medium.ttf */; };
+		B752D32B799B41ECB93A1DF9 /* ClashDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87C71820DF1A469AA42F0ACD /* ClashDisplay-Regular.ttf */; };
+		CCEBEBEAC5F84B878A0E051E /* Hind-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A00834777D0B4F31BF8B88DF /* Hind-Bold.ttf */; };
+		4B505F804896473B9114E4C2 /* Hind-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22C3C9BCBB984049821BFC6E /* Hind-Medium.ttf */; };
+		0CA5BAA2B4BD43C9B5D70956 /* Hind-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21DE277E80E349B88706EB65 /* Hind-SemiBold.ttf */; };
+		0A7CD28CBC8F4263B2D4FD8B /* OleoScript-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6AAF2AB47BD445DE869DF647 /* OleoScript-Bold.ttf */; };
+		F4E9E677B4304A38BADA706E /* OleoScript-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6F9428F55874910A27B37DA /* OleoScript-Regular.ttf */; };
+		75BBBE75BC4E4B8AB5AA4505 /* ProtestRiot-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AF925E2FA0AD4A3EAF5B7885 /* ProtestRiot-Regular.ttf */; };
+		7DA6198CAA3E43358A1F9AB5 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F2DC90FA4B704DAEA9F688E4 /* Roboto-Bold.ttf */; };
+		A09883E8C85A4C32A67D66F2 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BA6E42F8D4F49A2BB5C3DC9 /* Roboto-Medium.ttf */; };
+		28B984CFC21E4268B3B32EFA /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF63CB280C734F008AB3E22C /* Roboto-Regular.ttf */; };
+		0445CFB47E9F4D3AA4D8D4BA /* TiroDevanagariHindi-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1463921573E9479FAB53A15C /* TiroDevanagariHindi-Italic.ttf */; };
+		5BCC4CE37CC5457FA34345E1 /* TiroDevanagariHindi-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB46BBBEE60148B7A6F7D57D /* TiroDevanagariHindi-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +42,23 @@
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = kumharpariwar/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = kumharpariwar/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		3B5323378C7041E18FBCC1B7 /* Baloo2-Bold.ttf */ = {isa = PBXFileReference; name = "Baloo2-Bold.ttf"; path = "../assets/fonts/Baloo2-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D270B2A8DD5244FF9B9321F9 /* Baloo2-Medium.ttf */ = {isa = PBXFileReference; name = "Baloo2-Medium.ttf"; path = "../assets/fonts/Baloo2-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1A2B8B19CC3D444EBE2D0C62 /* Baloo2-Regular.ttf */ = {isa = PBXFileReference; name = "Baloo2-Regular.ttf"; path = "../assets/fonts/Baloo2-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D998798E427D43558F746974 /* ClashDisplay-Bold.ttf */ = {isa = PBXFileReference; name = "ClashDisplay-Bold.ttf"; path = "../assets/fonts/ClashDisplay-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FE3E35DE495F4637AC337F15 /* ClashDisplay-Medium.ttf */ = {isa = PBXFileReference; name = "ClashDisplay-Medium.ttf"; path = "../assets/fonts/ClashDisplay-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		87C71820DF1A469AA42F0ACD /* ClashDisplay-Regular.ttf */ = {isa = PBXFileReference; name = "ClashDisplay-Regular.ttf"; path = "../assets/fonts/ClashDisplay-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A00834777D0B4F31BF8B88DF /* Hind-Bold.ttf */ = {isa = PBXFileReference; name = "Hind-Bold.ttf"; path = "../assets/fonts/Hind-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		22C3C9BCBB984049821BFC6E /* Hind-Medium.ttf */ = {isa = PBXFileReference; name = "Hind-Medium.ttf"; path = "../assets/fonts/Hind-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		21DE277E80E349B88706EB65 /* Hind-SemiBold.ttf */ = {isa = PBXFileReference; name = "Hind-SemiBold.ttf"; path = "../assets/fonts/Hind-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6AAF2AB47BD445DE869DF647 /* OleoScript-Bold.ttf */ = {isa = PBXFileReference; name = "OleoScript-Bold.ttf"; path = "../assets/fonts/OleoScript-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B6F9428F55874910A27B37DA /* OleoScript-Regular.ttf */ = {isa = PBXFileReference; name = "OleoScript-Regular.ttf"; path = "../assets/fonts/OleoScript-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AF925E2FA0AD4A3EAF5B7885 /* ProtestRiot-Regular.ttf */ = {isa = PBXFileReference; name = "ProtestRiot-Regular.ttf"; path = "../assets/fonts/ProtestRiot-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F2DC90FA4B704DAEA9F688E4 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; name = "Roboto-Bold.ttf"; path = "../assets/fonts/Roboto-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3BA6E42F8D4F49A2BB5C3DC9 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; name = "Roboto-Medium.ttf"; path = "../assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EF63CB280C734F008AB3E22C /* Roboto-Regular.ttf */ = {isa = PBXFileReference; name = "Roboto-Regular.ttf"; path = "../assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1463921573E9479FAB53A15C /* TiroDevanagariHindi-Italic.ttf */ = {isa = PBXFileReference; name = "TiroDevanagariHindi-Italic.ttf"; path = "../assets/fonts/TiroDevanagariHindi-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FB46BBBEE60148B7A6F7D57D /* TiroDevanagariHindi-Regular.ttf */ = {isa = PBXFileReference; name = "TiroDevanagariHindi-Regular.ttf"; path = "../assets/fonts/TiroDevanagariHindi-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +109,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				E012D2E68B10460CA6073B6C /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -97,6 +132,31 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		E012D2E68B10460CA6073B6C /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				3B5323378C7041E18FBCC1B7 /* Baloo2-Bold.ttf */,
+				D270B2A8DD5244FF9B9321F9 /* Baloo2-Medium.ttf */,
+				1A2B8B19CC3D444EBE2D0C62 /* Baloo2-Regular.ttf */,
+				D998798E427D43558F746974 /* ClashDisplay-Bold.ttf */,
+				FE3E35DE495F4637AC337F15 /* ClashDisplay-Medium.ttf */,
+				87C71820DF1A469AA42F0ACD /* ClashDisplay-Regular.ttf */,
+				A00834777D0B4F31BF8B88DF /* Hind-Bold.ttf */,
+				22C3C9BCBB984049821BFC6E /* Hind-Medium.ttf */,
+				21DE277E80E349B88706EB65 /* Hind-SemiBold.ttf */,
+				6AAF2AB47BD445DE869DF647 /* OleoScript-Bold.ttf */,
+				B6F9428F55874910A27B37DA /* OleoScript-Regular.ttf */,
+				AF925E2FA0AD4A3EAF5B7885 /* ProtestRiot-Regular.ttf */,
+				F2DC90FA4B704DAEA9F688E4 /* Roboto-Bold.ttf */,
+				3BA6E42F8D4F49A2BB5C3DC9 /* Roboto-Medium.ttf */,
+				EF63CB280C734F008AB3E22C /* Roboto-Regular.ttf */,
+				1463921573E9479FAB53A15C /* TiroDevanagariHindi-Italic.ttf */,
+				FB46BBBEE60148B7A6F7D57D /* TiroDevanagariHindi-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -161,6 +221,23 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				8E406FA55030CF4138939E40 /* PrivacyInfo.xcprivacy in Resources */,
+				D1855A7B1B534472BA333CF9 /* Baloo2-Bold.ttf in Resources */,
+				0DE48F13EA894038B860606E /* Baloo2-Medium.ttf in Resources */,
+				8685091554D942BBBAB1E59C /* Baloo2-Regular.ttf in Resources */,
+				9FA315CF8DC747C693862FC0 /* ClashDisplay-Bold.ttf in Resources */,
+				F27AA8B7F4BB4A42A304F399 /* ClashDisplay-Medium.ttf in Resources */,
+				B752D32B799B41ECB93A1DF9 /* ClashDisplay-Regular.ttf in Resources */,
+				CCEBEBEAC5F84B878A0E051E /* Hind-Bold.ttf in Resources */,
+				4B505F804896473B9114E4C2 /* Hind-Medium.ttf in Resources */,
+				0CA5BAA2B4BD43C9B5D70956 /* Hind-SemiBold.ttf in Resources */,
+				0A7CD28CBC8F4263B2D4FD8B /* OleoScript-Bold.ttf in Resources */,
+				F4E9E677B4304A38BADA706E /* OleoScript-Regular.ttf in Resources */,
+				75BBBE75BC4E4B8AB5AA4505 /* ProtestRiot-Regular.ttf in Resources */,
+				7DA6198CAA3E43358A1F9AB5 /* Roboto-Bold.ttf in Resources */,
+				A09883E8C85A4C32A67D66F2 /* Roboto-Medium.ttf in Resources */,
+				28B984CFC21E4268B3B32EFA /* Roboto-Regular.ttf in Resources */,
+				0445CFB47E9F4D3AA4D8D4BA /* TiroDevanagariHindi-Italic.ttf in Resources */,
+				5BCC4CE37CC5457FA34345E1 /* TiroDevanagariHindi-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

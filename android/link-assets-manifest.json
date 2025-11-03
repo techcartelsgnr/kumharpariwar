@@ -1,0 +1,73 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Baloo2-Bold.ttf",
+      "sha1": "76d9d9015ec3a706d5adcdf6452b23578c732f8c"
+    },
+    {
+      "path": "assets/fonts/Baloo2-Medium.ttf",
+      "sha1": "a2d048736a1c9f8e2b01b1ecaa3de1db75a997db"
+    },
+    {
+      "path": "assets/fonts/Baloo2-Regular.ttf",
+      "sha1": "b183afe8d0c5f9c47865b7fe251e3783c80e5005"
+    },
+    {
+      "path": "assets/fonts/ClashDisplay-Bold.ttf",
+      "sha1": "ad48ac96269d34e5ac4b3149edc0720f118fac06"
+    },
+    {
+      "path": "assets/fonts/ClashDisplay-Medium.ttf",
+      "sha1": "3ab838ddae9140be8d61192e527ac5c526361038"
+    },
+    {
+      "path": "assets/fonts/ClashDisplay-Regular.ttf",
+      "sha1": "18352f4b2de32328e43311a0365af391ded2bc0a"
+    },
+    {
+      "path": "assets/fonts/Hind-Bold.ttf",
+      "sha1": "d66e1dd248db79a3afb8e807ffab9b29ba0b9f59"
+    },
+    {
+      "path": "assets/fonts/Hind-Medium.ttf",
+      "sha1": "a14a624672d1d83538fb6903e4a5a19f5f382d36"
+    },
+    {
+      "path": "assets/fonts/Hind-SemiBold.ttf",
+      "sha1": "0c9e8fca5676792ed9dc192d0ebaa2aa78c2d3d0"
+    },
+    {
+      "path": "assets/fonts/OleoScript-Bold.ttf",
+      "sha1": "dff875ee231c576614c16e4111138989845f63d0"
+    },
+    {
+      "path": "assets/fonts/OleoScript-Regular.ttf",
+      "sha1": "ab4a01f1970629a256a0b7fae61527179d929750"
+    },
+    {
+      "path": "assets/fonts/ProtestRiot-Regular.ttf",
+      "sha1": "e8cec983abf34dcdca59df4a90bce74969fa564a"
+    },
+    {
+      "path": "assets/fonts/Roboto-Bold.ttf",
+      "sha1": "62442a18a9fe9457c1afeabf683d263a691b7798"
+    },
+    {
+      "path": "assets/fonts/Roboto-Medium.ttf",
+      "sha1": "3c6a09fcc6a454924c81af7dff94fc6d399ed79b"
+    },
+    {
+      "path": "assets/fonts/Roboto-Regular.ttf",
+      "sha1": "56c5c0d38bde4c1f1549dda43db37b09c608aad3"
+    },
+    {
+      "path": "assets/fonts/TiroDevanagariHindi-Italic.ttf",
+      "sha1": "19b36ecc6a9c104c91635b51be61389709eeb7b5"
+    },
+    {
+      "path": "assets/fonts/TiroDevanagariHindi-Regular.ttf",
+      "sha1": "ef67b6ecb1d5ef20f309aab707098afbec5babbb"
+    }
+  ]
+}
