@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import {
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   View,
@@ -23,6 +22,7 @@ import InputField from '../../components/InputField';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dropdown } from 'react-native-element-dropdown';
 import Toast from 'react-native-toast-message';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function EditProfileScreen() {
   const navigation = useNavigation();
@@ -123,8 +123,8 @@ export default function EditProfileScreen() {
 
   return (
     <>
+        {/* <StatusBarPage /> */}
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
-        <StatusBarPage />
         <HeaderCommon headername="Edit Profile" />
         <View style={{flex:1, backgroundColor:COLORS.white}}>
 

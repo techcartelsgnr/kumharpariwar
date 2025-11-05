@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
 import {
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   View,
@@ -10,6 +9,8 @@ import {
 } from 'react-native';
 import { useSelector } from 'react-redux';
 import commanServices from '../redux/services/commanServices';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 export default BasicSlider = ({ sliderData = [] }) => {
   console.log("sliderData=====>", sliderData)
@@ -47,7 +48,7 @@ export default BasicSlider = ({ sliderData = [] }) => {
   }, [currentIndex, windowWidth, dummySlider]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <View style={[styles.scrollContainer, { height: windowHeight }]}>
         <ScrollView
           ref={scrollViewRef}
@@ -101,7 +102,7 @@ export default BasicSlider = ({ sliderData = [] }) => {
           );
         })}
       </View>
-    </SafeAreaView>
+    </>
   );
 };
 

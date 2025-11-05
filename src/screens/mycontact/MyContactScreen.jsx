@@ -99,7 +99,7 @@ export default function MyContactScreen() {
 
   return (
     <>
-      <StatusBarPage />
+      {/* <StatusBarPage /> */}
       <SafeAreaView style={styles.safeArea}>
         <HeaderCommon headername="My Contacts" />
         <View style={styles.newsBox}>

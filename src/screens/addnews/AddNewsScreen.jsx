@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   View,
@@ -11,7 +10,6 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
-
 
 
 
@@ -26,6 +24,7 @@ import StatusBarPage from '../../components/StatusBarPage';
 import { COLORS } from '../../theme/theme';
 import InputField from '../../components/InputField';
 import ButtonWithBlue from '../../components/ButtonForLogin';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function AddNewsScreen() {
   const dispatch = useDispatch();
@@ -89,7 +88,7 @@ export default function AddNewsScreen() {
 
   return (
     <>
-      <StatusBarPage />
+      {/* <StatusBarPage /> */}
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
         <HeaderCommon headername="Add Post" />
         <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: COLORS.white }}>

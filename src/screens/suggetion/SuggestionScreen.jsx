@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {
-  SafeAreaView,
   ScrollView,
   View,
   TextInput,
@@ -9,7 +8,6 @@ import {
 import {formstyles} from '../components/FormsStyle';
 import {Dropdown} from 'react-native-element-dropdown';
 import {useNavigation} from '@react-navigation/native';
-
 // api data
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -20,6 +18,7 @@ import ButtonWithBlue from '../../components/ButtonForLogin';
 import navigationStrings from '../../utils/navigationStrings';
 import StatusBarPage from '../../components/StatusBarPage';
 import HeaderCommon from '../../components/HeaderCommon';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Suggestion() {
   const dispatch = useDispatch();
@@ -38,7 +37,7 @@ export default function Suggestion() {
 
   return (
     <>
-      <StatusBarPage />
+      {/* <StatusBarPage /> */}
       <SafeAreaView
         style={{flex: 1, paddingBottom: 10, backgroundColor: COLORS.blue}}>
         <HeaderCommon headername="Suggestion Box" />

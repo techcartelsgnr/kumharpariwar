@@ -7,25 +7,23 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
-  Share,
+  Share as RNShare,
   RefreshControl,
   PermissionsAndroid,
   Platform,
-  SafeAreaView,
   Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNFS from 'react-native-fs';
-import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
-import Shared from 'react-native-share';
+import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import Share from 'react-native-share';
 import Toast from 'react-native-toast-message';
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Redux imports
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../components/Header';
-import StatusBarPage from '../../components/StatusBarPage';
 import Slider from '../../components/Slider';
 import navigationStrings from '../../utils/navigationStrings';
 import BusinessData from '../../components/BusinessData';
@@ -45,15 +43,15 @@ import {
 } from '../../redux/slices/homeSlice';
 import { COLORS } from '../../theme/theme';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const HomeScreen = () => {
   const [sliderData, setSliderData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const navigation = useNavigation();
-  const { token } = useSelector((state) => state.auth);
-  const { pending } = useSelector((state) => state.home);
-  const { referMessage, thoughtOfTheDay } = useSelector((state) => state.reports);
+  const { token } = useSelector(state => state.auth);
+  const { pending } = useSelector(state => state.home);
+  const { referMessage, thoughtOfTheDay } = useSelector(state => state.reports);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -93,7 +91,7 @@ const HomeScreen = () => {
     fetchCategoryData();
   };
 
-  // Request storage permission
+  // Request storage permission for Android versions
   const requestStoragePermission = async () => {
     if (Platform.OS === 'android') {
       const androidVersion = parseInt(Platform.constants.Release);
@@ -102,10 +100,7 @@ const HomeScreen = () => {
           const result = await request(PERMISSIONS.ANDROID.READ_MEDIA_IMAGES);
           return result === RESULTS.GRANTED;
         }
-
-        if (androidVersion >= 11) {
-          return true;
-        }
+        if (androidVersion >= 11) return true;
 
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
@@ -121,11 +116,11 @@ const HomeScreen = () => {
         return false;
       }
     }
-    return true; // iOS
+    return true; // iOS always true
   };
 
-  // ✅ Image download handler (using RNFS only)
-  const downloadImage = async (imageUrl) => {
+  // Download image to device storage
+  const downloadImage = async imageUrl => {
     try {
       const permissionGranted = await requestStoragePermission();
       if (!permissionGranted) {
@@ -137,19 +132,17 @@ const HomeScreen = () => {
       const formattedDate = date.toISOString().split('T')[0];
       const fileName = `Thought_of_the_day_${formattedDate}.jpg`;
 
-      let downloadPath = '';
-      if (Platform.OS === 'android') {
-        downloadPath = `${RNFS.DownloadDirectoryPath}/${fileName}`;
-      } else {
-        downloadPath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
-      }
+      const downloadPath =
+        Platform.OS === 'android'
+          ? `${RNFS.DownloadDirectoryPath}/${fileName}`
+          : `${RNFS.DocumentDirectoryPath}/${fileName}`;
 
       const downloadResult = await RNFS.downloadFile({
         fromUrl: imageUrl,
         toFile: downloadPath,
       }).promise;
 
-      if (downloadResult && downloadResult.statusCode === 200) {
+      if (downloadResult.statusCode === 200) {
         Toast.show({
           text1: 'Image Downloaded Successfully!',
           type: 'success',
@@ -164,115 +157,117 @@ const HomeScreen = () => {
     }
   };
 
-  // ✅ Image share handler (RNFS only, no rn-fetch-blob)
+  // Share image function
   const shareImage = async () => {
     try {
-      const imagePath = `${RNFS.CachesDirectoryPath}/image.jpg`;
+      const permissionGranted = await requestStoragePermission();
+      if (!permissionGranted) {
+        Alert.alert('Permission Denied', 'Storage permission is required.');
+        return;
+      }
 
-      // Download the image first
-      await RNFS.downloadFile({
+      const fileName = `share_image_${Date.now()}.jpg`;
+      const imagePath = `${RNFS.CachesDirectoryPath}/${fileName}`;
+
+      // Download the image first to cache
+      const downloadResult = await RNFS.downloadFile({
         fromUrl: thoughtOfTheDay,
         toFile: imagePath,
       }).promise;
 
-      const base64Image = await RNFS.readFile(imagePath, 'base64');
+      if (downloadResult.statusCode !== 200) {
+        throw new Error('Image download failed');
+      }
 
       const shareOptions = {
+        title: 'कुम्हार परिवार',
         message:
           'कुम्हार परिवार एप्प डाउनलोड करने के लिए विजिट करें: https://kumharpariwar.com',
-        url: `data:image/jpeg;base64,${base64Image}`,
+        url: Platform.OS === 'android' ? 'file://' + imagePath : imagePath,
+        type: 'image/jpeg',
       };
 
-      await Shared.open(shareOptions);
+      await Share.open(shareOptions);
+
+      setTimeout(() => RNFS.unlink(imagePath).catch(() => {}), 3000);
     } catch (error) {
       console.log('Error sharing image:', error);
-      Alert.alert('Error', 'Failed to share image.');
     }
   };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
-      {/* <StatusBarPage /> */}
       <View style={{ flex: 1, backgroundColor: COLORS.white }}>
-        <SafeAreaView style={styles.container}>
-          <Header name={'Sourabh Duharia'} />
-          <ScrollView
-            nestedScrollEnabled={true}
-            style={{ width: '100%' }}
-            refreshControl={
-              <RefreshControl onRefresh={onRefresh} refreshing={pending} />
-            }>
-            <View style={{ marginTop: 10 }}>
-              {sliderData.length > 0 && <Slider sliderData={sliderData} />}
-            </View>
+        <Header name={'Welcome Back'} />
+        <ScrollView
+          nestedScrollEnabled={true}
+          style={{ width: '100%' }}
+          refreshControl={
+            <RefreshControl onRefresh={onRefresh} refreshing={pending} />
+          }>
+          <View style={{ marginTop: 10 }}>
+            {sliderData.length > 0 && <Slider sliderData={sliderData} />}
+          </View>
 
-            <View style={{ marginTop: 0 }}>
-              <View style={styles.homecontentHeader}>
-                <Text style={styles.homecontentTitle}>Categories</Text>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate(navigationStrings.ALLBUSINESSLIST)
-                  }>
-                  <Text style={styles.homecontentLink}>See all</Text>
-                </TouchableOpacity>
-              </View>
-              <BusinessData categoryData={categoryData} />
-            </View>
-
-            <View style={styles.shareAppHome}>
+          <View style={{ marginTop: 0 }}>
+            <View style={styles.homecontentHeader}>
+              <Text style={styles.homecontentTitle}>Categories</Text>
               <TouchableOpacity
-                style={styles.shareAppBox}
-                onPress={async () => await Share.share({ message: referMessage })}>
-                <Ionicons name="share" style={styles.shareAppIcon} />
-                <Text style={styles.shareAppText}>Share App Now</Text>
+                onPress={() =>
+                  navigation.navigate(navigationStrings.ALLBUSINESSLIST)
+                }>
+                <Text style={styles.homecontentLink}>See all</Text>
               </TouchableOpacity>
             </View>
+            <BusinessData categoryData={categoryData} />
+          </View>
 
-            <View style={styles.quotesBox}>
-              <Text style={styles.quotesHeading}>आज का सुविचार</Text>
-              <View style={styles.quotesMainBox}>
-                <View style={styles.quotesImageOuter}>
-                  <Image
-                    source={{
-                      uri:
-                        thoughtOfTheDay ||
-                        'https://kumharpariwar.com/storage/slider/1745584801.jpg',
-                    }}
-                    style={styles.quotesImage}
-                  />
-                </View>
-                <View style={styles.quotesBoxRight}>
-                  <TouchableOpacity onPress={() => downloadImage(thoughtOfTheDay)}>
-                    <Text style={styles.quotesRightText}>Download</Text>
-                    <View style={styles.quotesBoxRightSocialBox}>
-                      <Ionicons
-                        name="download"
-                        style={styles.businessSubCatIcon}
-                      />
-                    </View>
-                  </TouchableOpacity>
+          <View style={styles.shareAppHome}>
+            <TouchableOpacity
+              style={styles.shareAppBox}
+              onPress={async () => await RNShare.share({ message: referMessage })}>
+              <Ionicons name="share" style={styles.shareAppIcon} />
+              <Text style={styles.shareAppText}>Share App Now</Text>
+            </TouchableOpacity>
+          </View>
 
-                  <TouchableOpacity style={{ marginTop: 20 }} onPress={shareImage}>
-                    <Text style={styles.quotesRightText}>Share</Text>
-                    <View style={styles.quotesBoxRightSocialBox}>
-                      <Ionicons name="share" style={styles.businessSubCatIcon} />
-                    </View>
-                  </TouchableOpacity>
-                </View>
+          <View style={styles.quotesBox}>
+            <Text style={styles.quotesHeading}>आज का सुविचार</Text>
+            <View style={styles.quotesMainBox}>
+              <View style={styles.quotesImageOuter}>
+                <Image
+                  source={{
+                    uri:
+                      thoughtOfTheDay ||
+                      'https://kumharpariwar.com/storage/slider/1745584801.jpg',
+                  }}
+                  style={styles.quotesImage}
+                />
+              </View>
+              <View style={styles.quotesBoxRight}>
+                <TouchableOpacity onPress={() => downloadImage(thoughtOfTheDay)}>
+                  <Text style={styles.quotesRightText}>Download</Text>
+                  <View style={styles.quotesBoxRightSocialBox}>
+                    <Ionicons name="download" style={styles.businessSubCatIcon} />
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{ marginTop: 20 }} onPress={shareImage}>
+                  <Text style={styles.quotesRightText}>Share</Text>
+                  <View style={styles.quotesBoxRightSocialBox}>
+                    <Ionicons name="share" style={styles.businessSubCatIcon} />
+                  </View>
+                </TouchableOpacity>
               </View>
             </View>
-          </ScrollView>
-        </SafeAreaView>
+          </View>
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    overflow: 'hidden',
-  },
   quotesBox: {
     backgroundColor: COLORS.pink,
     padding: 20,
@@ -287,6 +282,7 @@ const styles = StyleSheet.create({
   quotesMainBox: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingBottom:50
   },
   quotesImageOuter: {
     width: '80%',
@@ -336,7 +332,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: COLORS.pink,
     paddingVertical: 10,
-    paddingHorizontal: 10,
     borderRadius: 10,
     borderWidth: 5,
     borderColor: COLORS.white,

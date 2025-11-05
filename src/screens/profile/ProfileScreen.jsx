@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import {
-    SafeAreaView,
     ScrollView,
     StyleSheet,
     Text,
@@ -23,6 +22,7 @@ import navigationStrings from '../../utils/navigationStrings';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { logout } from '../../redux/slices/authSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ProfileScreen = () => {
     const navigation = useNavigation();

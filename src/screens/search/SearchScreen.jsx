@@ -9,12 +9,10 @@ import {
   FlatList,
   Linking,
   ActivityIndicator,
-  SafeAreaView
 } from 'react-native';
 
 import { Dropdown } from 'react-native-element-dropdown';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 // api
 import { useDispatch, useSelector } from 'react-redux';
 import HeaderCommon from '../../components/HeaderCommon';
@@ -27,6 +25,7 @@ import { formstyles } from '../../components/FormsStyle';
 import { fetchBusinessCategories } from '../../redux/slices/homePageSlice';
 import { fetchSearchResultsSlice } from '../../redux/slices/homeSlice';
 import { screenHeight, screenWidth } from '../../utils/constent';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 export default function SearchScreen() {

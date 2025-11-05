@@ -9,7 +9,7 @@ const height = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   // header main home
   headerbox: {
-    height: Platform.OS === 'android' ? screenHeight * 8 :  screenHeight * 10,
+    // height: Platform.OS === 'android' ? screenHeight * 8 :  screenHeight * 10,
     backgroundColor: COLORS.blue,
     elevation: 0,
     paddingHorizontal: screenWidth * 5,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   // Header Common
   headercommonbox: {
-    height: Platform.OS === 'android' ? screenHeight * 10 :  screenHeight * 6,
+    // height: Platform.OS === 'android' ? screenHeight * 10 :  screenHeight * 6,
     backgroundColor: COLORS.blue,
     elevation: 0,
     paddingBottom:Platform.OS === 'android' ? screenHeight * 2 : screenHeight * 2,

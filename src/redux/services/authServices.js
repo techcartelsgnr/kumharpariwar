@@ -108,13 +108,17 @@ const changePassword = async ({token, new_pin, old_pin}) => {
 
   return response.data;
 };
-// resetPassword
-const resetPassword = async ({mobile, otp, password}) => {
+const resetPassword = async ({ mobile, otp, password }) => {
   const response = await authAxios.post(`/userresetpassword`, {
-    mobile: mobile,
-    password: password,
-    otp: otp,
+    mobile,
+    password,
+    otp,
   });
+
+  // ✅ Check for backend error manually
+  if (response.data.errors) {
+    throw new Error(response.data.errors); // forces catch in thunk
+  }
 
   return response.data;
 };

@@ -26,6 +26,7 @@ import {
   getInitialNotification,
 } from '@react-native-firebase/messaging';
 import { fetchFCMToken } from './src/utils/fservices';
+import Toast from 'react-native-toast-message';
 
 const Stack = createNativeStackNavigator();
 const NAVIGATION_IDS = ['Notifications'];
@@ -151,7 +152,9 @@ const AppContent = () => {
 
   return (
     <NavigationContainer linking={linking} ref={navigationRef}>
+       
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+       
         {token != null ? MainStack() : AuthStack()}
       </Stack.Navigator>
     </NavigationContainer>
@@ -162,6 +165,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <AppContent />
+    <Toast position="Top" visibilityTime={3000}  />
     </Provider>
   );
 }

@@ -36,7 +36,7 @@ const NewsDetails = ({ route }) => {
   // Conditionally render only when newsDetailById is available
   return (
     <View style={styles.container}>
-      <StatusBarPage />
+      {/* <StatusBarPage /> */}
       <HeaderCommon headername="Post Details" />
       <View style={{ marginVertical: 5 }} />
       {pending ? (

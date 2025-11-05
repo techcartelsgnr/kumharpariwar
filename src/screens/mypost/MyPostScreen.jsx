@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-    SafeAreaView,
+   
     StyleSheet,
     Text,
     View,
@@ -24,6 +24,7 @@ import { COLORS } from '../../theme/theme';
 import { fullWidth, screenWidth } from '../../utils/constent';
 import { fetchNewsByUserSlice } from '../../redux/slices/homeSlice';
 import RenderHtml from 'react-native-render-html';
+import { SafeAreaView } from 'react-native-safe-area-context';
 export default function MyPostScreen() {
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
@@ -201,7 +202,7 @@ export default function MyPostScreen() {
     return (
         <SafeAreaView style={[styles.safeArea, { backgroundColor: COLORS.blue }]}>
 
-            <StatusBarPage />
+            {/* <StatusBarPage /> */}
             <HeaderCommon headername="My Posts" />
             <View style={[styles.newsBox, { backgroundColor: COLORS.white, }]}>
                 {pending && !myNewsData.length ? (

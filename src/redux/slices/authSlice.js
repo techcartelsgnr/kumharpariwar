@@ -155,11 +155,11 @@ export const changePassword = createAsyncThunk(
 );
 export const resetPassword = createAsyncThunk(
   'auth/resetPassword',
-  async ({mobile, otp, password}, thunkAPI) => {
+  async ({ mobile, otp, password }, thunkAPI) => {
     try {
-      return await authService.resetPassword({mobile, otp, password});
+      return await authService.resetPassword({ mobile, otp, password });
     } catch (e) {
-      console.log('in catch');
+      console.log('in catch', e);
       const message =
         (e.response && e.response.data && e.response.data.message) ||
         e.message ||

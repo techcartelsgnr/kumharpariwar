@@ -1,14 +1,16 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import TabRoutes from './TabRoutes';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Drawer = createDrawerNavigator();
 
 
 const CustomDrawerContent = ({ navigation }) => {
  
-
+ const insets = useSafeAreaInsets();
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "lightgray" }}>
             <View style={{

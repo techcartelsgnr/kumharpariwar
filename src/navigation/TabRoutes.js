@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Image,
@@ -6,30 +6,69 @@ import {
   TouchableOpacity,
   View,
   Modal,
+  Animated,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
 } from '@react-navigation/drawer';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useDispatch, useSelector } from 'react-redux';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
+import { logout } from '../redux/slices/authSlice';
+import { COLORS } from '../theme/theme';
 
+// Screens
+import {
+  Home,
   OurProud,
   SearchScreen,
-  Home,
   NewsScreen,
   ProfileScreen,
+  TermsConditionScreen,
+  MyContactScreen,
 } from '../screens/index/index';
-import {COLORS} from '../theme/theme';
-import {logout} from '../redux/slices/authSlice';
-import {useDispatch, useSelector} from 'react-redux';
-import TermsConditionScreen from '../screens/termCondition/TermsConditionScreen';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 
-export default function HomeStack() {
+// -------------------- Animated Gradient Component --------------------
+function AnimatedGradient({ colors, style }) {
+  const animation = new Animated.Value(0);
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(animation, {
+          toValue: 1,
+          duration: 4000,
+          useNativeDriver: false,
+        }),
+        Animated.timing(animation, {
+          toValue: 0,
+          duration: 4000,
+          useNativeDriver: false,
+        }),
+      ])
+    ).start();
+  }, []);
+
+  // For simplicity, static gradient here. For dynamic interpolation you could extend this.
+  return (
+    <LinearGradient
+      colors={colors}
+      style={[style, { flex: 1 }]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+    />
+  );
+}
+
+// -------------------- Bottom Tabs --------------------
+function MainTabs() {
+  const insets = useSafeAreaInsets();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -38,16 +77,11 @@ export default function HomeStack() {
         tabBarInactiveTintColor: '#f3f3f3',
         tabBarStyle: {
           backgroundColor: COLORS.blue,
-          paddingBottom: 5,
           borderTopColor: COLORS.blue,
-          paddingTop: 6,
-          height: 56,
-          elevation: 0,
-          shadowOpacity: 0.2,
-          shadowOffset: {
-            width: 10,
-            height: 10,
-          },
+          paddingTop: 3,
+          paddingBottom: 5 + insets.bottom,
+          height: 56 + insets.bottom,
+          position: 'absolute',
         },
         tabBarLabelStyle: {
           fontFamily: 'Hind-SemiBold',
@@ -57,85 +91,65 @@ export default function HomeStack() {
       }}>
       <Tab.Screen
         name="Home"
-        component={DrawerNavigator}
-        options={({route}) => ({
-          tabBarLabel: 'Home',
-          tabBarIcon: ({focused, color}) => (
-            <Image
-              source={
-                focused
-                  ? require('../../assets/tab/hometab1.png')
-                  : require('../../assets/tab/homewhite1.png')
-              }
-              style={[styles.hometabFirst, {tintColor: color}]}
-            />
-          ),
-        })}
-      />
-      <Tab.Screen
-        name="Our Proud"
-        component={OurProud}
+        component={Home}
         options={{
-          tabBarLabel: 'Our Proud',
-          tabBarIcon: ({focused, color}) => (
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color }) => (
             <Image
-              source={
-                focused
-                  ? require('../../assets/tab/ouproudfill.png')
-                  : require('../../assets/tab/ouproudwhite.png')
-              }
-              style={[styles.hometabFirst, {tintColor: color}]}
+              source={require('../../assets/tab/hometab1.png')}
+              style={[styles.hometabFirst, { tintColor: color }]}
             />
           ),
         }}
       />
-       <Tab.Screen
+      <Tab.Screen
+        name="OurProud"
+        component={OurProud}
+        options={{
+          tabBarLabel: 'Our Proud',
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={require('../../assets/tab/ouproudfill.png')}
+              style={[styles.hometabFirst, { tintColor: color }]}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Search"
         component={SearchScreen}
         options={{
           tabBarLabel: 'Search',
-          tabBarIcon: ({focused, color}) => (
+          tabBarIcon: ({ color }) => (
             <Image
-              source={
-                focused
-                  ? require('../../assets/tab/searchfill.png')
-                  : require('../../assets/tab/searchwhite.png')
-              }
-              style={[styles.hometabFirst, {tintColor: color}]}
+              source={require('../../assets/tab/searchfill.png')}
+              style={[styles.hometabFirst, { tintColor: color }]}
             />
           ),
         }}
-      /> 
-       <Tab.Screen
+      />
+      <Tab.Screen
         name="News"
         component={NewsScreen}
         options={{
           tabBarLabel: 'Posts',
-          tabBarIcon: ({focused, color}) => (
+          tabBarIcon: ({ color }) => (
             <Image
-              source={
-                focused
-                  ? require('../../assets/tab/newsfill.png')
-                  : require('../../assets/tab/newswhite.png')
-              }
-              style={[styles.hometabFirst, {tintColor: color}]}
+              source={require('../../assets/tab/newsfill.png')}
+              style={[styles.hometabFirst, { tintColor: color }]}
             />
           ),
         }}
-      /> 
+      />
       <Tab.Screen
-        name="MyProfile"
+        name="Profile"
         component={ProfileScreen}
         options={{
           tabBarLabel: 'My Profile',
-          tabBarIcon: ({focused, color}) => (
+          tabBarIcon: ({ color }) => (
             <Image
-              source={
-                focused
-                  ? require('../../assets/tab/profiletab.png')
-                  : require('../../assets/tab/profilewhite.png')
-              }
-              style={[styles.hometabFirst, {tintColor: color}]}
+              source={require('../../assets/tab/profiletab.png')}
+              style={[styles.hometabFirst, { tintColor: color }]}
             />
           ),
         }}
@@ -144,284 +158,187 @@ export default function HomeStack() {
   );
 }
 
+// -------------------- Custom Drawer --------------------
 function CustomDrawerContent(props) {
   const dispatch = useDispatch();
-  const {token} = useSelector(state => state.auth);
+  const { token } = useSelector(state => state.auth);
   const [isModalVisible, setModalVisible] = useState(false);
-  const handleLogout = () => {
-    setModalVisible(true);
-  };
+
+  const handleLogout = () => setModalVisible(true);
   const handleConfirmLogout = () => {
-    dispatch(logout({token}));
+    dispatch(logout({ token }));
     setModalVisible(false);
   };
-
-  const handleCancelLogout = () => {
-    setModalVisible(false);
-  };
-
+  const handleCancelLogout = () => setModalVisible(false);
+ const insets = useSafeAreaInsets();
   return (
-    <View style={{flex: 1}}>
-      <DrawerContentScrollView {...props}>
-        <View style={styles.customDrawerItem}>
-          {/* Home Page */}
-          <View
-            style={{
-              backgroundColor: COLORS.bg,
-              marginTop: -5,
-              paddingVertical: 15,
-            }}>
+    
+    <>
+      {/* Animated Gradient Background */}
+      <AnimatedGradient
+        colors={['#3366c6', '#6a60da', '#46f0f7']}
+        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 ,  }}
+      />
+
+      {/* Drawer Content Overlay */}
+      <View style={{ flex: 1 ,paddingBottom: 5 + insets.bottom,}}>
+        <DrawerContentScrollView {...props} contentContainerStyle={{ backgroundColor: 'transparent' }}>
+          <View style={{ backgroundColor: 'transparent', paddingVertical: 20 }}>
             <Image
               source={require('../../assets/jpks_logo.png')}
-              style={{
-                height: 80,
-                width: 80,
-                alignSelf: 'center',
-
-                backgroundColor: COLORS.bg,
-              }}
+              style={{ height: 80, width: 80, alignSelf: 'center' }}
             />
-            <Text style={styles.usernameText}>Home Page</Text>
+            <Text style={styles.usernameText}>कुम्हार परिवार</Text>
           </View>
 
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('Home Page')}>
+          {/* Home Page */}
+          <TouchableOpacity onPress={() => props.navigation.navigate('MainTabs')}>
             <View style={styles.drawerRow}>
-              <View
-                style={[styles.myProfileIcon, {backgroundColor: '#5d3bf1'}]}>
-                <Ionicons
-                  name="home-outline"
-                  style={styles.myProfileMainIcon}
-                />
+              <View style={[styles.myProfileIcon, { backgroundColor: '#5d3bf1' }]}>
+                <Ionicons name="home-outline" style={styles.myProfileMainIcon} />
               </View>
               <Text style={styles.drawerText}>Home Page</Text>
-              <View style={{flex: 1}} />
-              <Ionicons name="chevron-forward-outline" size={20} />
+              <Ionicons name="chevron-forward-outline" size={20} color="white" />
             </View>
           </TouchableOpacity>
-
-          {/* My News */}
-          {/* <TouchableOpacity
-            onPress={() => props.navigation.navigate('My News')}>
-            <View style={styles.drawerRow}>
-              <View
-                style={[styles.myProfileIcon, {backgroundColor: '#54bfe9'}]}>
-                <Ionicons
-                  name="newspaper-outline"
-                  style={styles.myProfileMainIcon}
-                />
-              </View>
-              <Text style={styles.drawerText}>My Posts</Text>
-              <View style={{flex: 1}} />
-              <Ionicons name="chevron-forward-outline" size={20} />
-            </View>
-          </TouchableOpacity> */}
 
           {/* My Contacts */}
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('My Contacts')}>
+          <TouchableOpacity onPress={() => props.navigation.navigate('MyContactScreen')}>
             <View style={styles.drawerRow}>
-              <View
-                style={[styles.myProfileIcon, {backgroundColor: '#30d14e'}]}>
-                <Ionicons
-                  name="logo-whatsapp"
-                  style={styles.myProfileMainIcon}
-                />
+              <View style={[styles.myProfileIcon, { backgroundColor: '#30d14e' }]}>
+                <Ionicons name="logo-whatsapp" style={styles.myProfileMainIcon} />
               </View>
               <Text style={styles.drawerText}>My Contacts</Text>
-              <View style={{flex: 1}} />
-              <Ionicons name="chevron-forward-outline" size={20} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate(navigationStrings.ABOUT)}>
-            <View style={styles.drawerRow}>
-              <View
-                style={[styles.myProfileIcon, {backgroundColor: '#ffaa00'}]}>
-                <Ionicons
-                  name="information-circle-outline"
-                  style={styles.myProfileMainIcon}
-                />
-              </View>
-              <Text style={styles.drawerText}>About Us</Text>
-              <View style={{flex: 1}} />
-              <Ionicons name="chevron-forward-outline" size={20} />
+              <Ionicons name="chevron-forward-outline" size={20} color="white" />
             </View>
           </TouchableOpacity>
 
           {/* Terms & Conditions */}
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('TermsConditionScreen')}>
+          <TouchableOpacity onPress={() => props.navigation.navigate('TermsConditionScreen')}>
             <View style={styles.drawerRow}>
-              <View
-                style={[styles.myProfileIcon, {backgroundColor: '#0084a8'}]}>
-                <Ionicons
-                  name="document-text"
-                  style={styles.myProfileMainIcon}
-                />
+              <View style={[styles.myProfileIcon, { backgroundColor: '#0084a8' }]}>
+                <Ionicons name="document-text" style={styles.myProfileMainIcon} />
               </View>
               <Text style={styles.drawerText}>Terms & Conditions</Text>
-              <View style={{flex: 1}} />
-              <Ionicons name="chevron-forward-outline" size={20} />
+              <Ionicons name="chevron-forward-outline" size={20} color="white" />
             </View>
           </TouchableOpacity>
-        </View>
-      </DrawerContentScrollView>
-      {/* Logout */}
+        </DrawerContentScrollView>
 
-      {/* Logout */}
-      <TouchableOpacity onPress={() => handleLogout()}>
-        <View
-          style={[
-            styles.drawerRow,
-            {borderTopColor: '#e0e3f7', borderTopWidth: 1},
-          ]}>
+        {/* Logout */}
+        <TouchableOpacity onPress={handleLogout}>
           <View
-            style={[styles.myProfileIcon, {backgroundColor: COLORS.redcolor}]}>
-            <Ionicons name="exit" style={styles.myProfileMainIcon} />
+            style={[
+              styles.drawerRow,
+              { borderTopColor: 'rgba(255,255,255,0.2)', borderTopWidth: 1 },
+            ]}>
+            <View style={[styles.myProfileIcon, { backgroundColor: COLORS.redcolor }]}>
+              <Ionicons name="exit" style={styles.myProfileMainIcon} />
+            </View>
+            <Text style={styles.drawerText}>Logout</Text>
+            <Ionicons name="chevron-forward-outline" size={20} color="white" />
           </View>
-          <Text style={styles.drawerText}>Logout</Text>
-          <View style={{flex: 1}} />
-          <Ionicons name="chevron-forward-outline" size={20} />
-        </View>
-      </TouchableOpacity>
-      {/* Modal for logout confirmation */}
-      <Modal
-        transparent={true}
-        visible={isModalVisible}
-        animationType="slide"
-        onRequestClose={() => setModalVisible(false)}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Image
-              source={require('../../assets/logout.png')} // Replace with your image path
-              style={styles.modalImage}
-            />
-            <Text style={styles.modalText}>
-              Are you sure you want to logout?
-            </Text>
-            <View style={styles.modalButtons}>
-              <TouchableOpacity
-                style={[styles.modalButton, styles.modalButtonCancel]}
-                onPress={() => setModalVisible(false)}>
-                <Text style={styles.modalButtonText}>Naah, Just Kidding</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.modalButton, styles.modalButtonConfirm]}
-                onPress={handleConfirmLogout}>
-                <Text style={[styles.modalButtonText, {color: '#fefefe'}]}>
-                  Yes, Log Me Out
-                </Text>
-              </TouchableOpacity>
+        </TouchableOpacity>
+
+        {/* Logout Modal */}
+        <Modal
+          transparent={true}
+          visible={isModalVisible}
+          animationType="fade"
+          onRequestClose={() => setModalVisible(false)}>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Image
+                source={require('../../assets/logout.png')}
+                style={styles.modalImage}
+              />
+              <Text style={styles.modalText}>Are you sure you want to logout?</Text>
+              <View style={styles.modalButtons}>
+                <TouchableOpacity
+                  style={[styles.modalButton, styles.modalButtonCancel]}
+                  onPress={handleCancelLogout}>
+                  <Text style={styles.modalButtonText}>Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.modalButton, styles.modalButtonConfirm]}
+                  onPress={handleConfirmLogout}>
+                  <Text style={[styles.modalButtonText, { color: '#fefefe' }]}>
+                    Logout
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
-    </View>
+        </Modal>
+      </View>
+    </>
   );
 }
 
-function DrawerNavigator() {
+// -------------------- Drawer Navigator --------------------
+export default function AppDrawer() {
   return (
     <Drawer.Navigator
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
-        drawerStyle: {
-          backgroundColor: '#fefefe',
-        },
-      }}
-      drawerContent={props => <CustomDrawerContent {...props} />}
-    >
+        headerShown: false,
+        drawerStyle: { backgroundColor: 'transparent', width: 280 },
+        sceneContainerStyle: { backgroundColor: 'transparent' },
+      }}>
+      {/* Keep MainTabs as one drawer screen */}
+      <Drawer.Screen name="MainTabs" component={MainTabs} />
+      <Drawer.Screen name="MyContactScreen" component={MyContactScreen} />
       <Drawer.Screen
-        name="Home Page"
-        component={Home}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Drawer.Screen
-        name="Our Proud"
-        component={OurProud}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Drawer.Screen
-        name="Search"
-        component={SearchScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Drawer.Screen
-        name="News"
-        component={NewsScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Drawer.Screen
-        name="My Profile"
-        component={ProfileScreen}
-        options={{
-          headerShown: false,
-        }}
+        name="TermsConditionScreen"
+        component={TermsConditionScreen}
       />
     </Drawer.Navigator>
   );
 }
 
-
+// -------------------- Styles --------------------
 const styles = StyleSheet.create({
-  hometabFirst: {
-    height: 22,
-    width: 22,
-  },
-  customDrawerItem: {
-    marginTop: 0,
-  },
+  hometabFirst: { height: 22, width: 22 },
   drawerRow: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 15,
     paddingHorizontal: 20,
-    borderBottomWidth: 1,
-    borderBlockColor: '#e0e3f7',
+    borderBottomWidth: 0.5,
+    borderBottomColor: 'rgba(220, 220, 245, 0.2)',
+    backgroundColor: 'rgba(255,255,255,0.05)',
+    borderRadius: 8,
+    marginVertical: 2,
   },
   drawerText: {
-    fontSize: 14,
+    fontSize: 15,
     fontFamily: 'Baloo2-Bold',
-    color: '#0c0c0c',
+    color: 'white',
+    flex: 1,
   },
   usernameText: {
-    fontSize: 14,
-    fontFamily: 'Baloo2-Medium',
-    color: COLORS.white,
+    fontSize: 18,
+    fontFamily: 'Baloo2-SemiBold',
+    color: 'white',
     textAlign: 'center',
+    marginTop: 10,
+    letterSpacing: 0.8,
   },
-  myProfileMainIcon: {
-    color: COLORS.white,
-    fontSize: 16,
-  },
+  myProfileMainIcon: { color: 'white', fontSize: 18 },
   myProfileIcon: {
-    width: 32,
-    height: 32,
-    borderRadius: 50,
-    marginRight: 12,
-    flexDirection: 'row',
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    marginRight: 14,
+    backgroundColor: 'rgba(0,0,0,0.18)',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.8)', // Semi-transparent background
   },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalContent: {
     width: 300,
@@ -430,25 +347,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
   },
-  modalImage: {
-    width: 50,
-    height: 50,
-    marginBottom: 15,
-  },
+  modalImage: { width: 50, height: 50, marginBottom: 15 },
   modalText: {
     fontSize: 16,
     marginBottom: 10,
     fontFamily: 'Baloo2-Medium',
     textAlign: 'center',
   },
-  modalButtons: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
+  modalButtons: { flexDirection: 'column', width: '100%' },
   modalButton: {
     padding: 10,
-    marginHorizontal: 5,
+    marginVertical: 5,
     borderRadius: 5,
     alignItems: 'center',
   },
@@ -460,35 +369,6 @@ const styles = StyleSheet.create({
   modalButtonCancel: {
     borderWidth: 1,
     borderColor: COLORS.bg,
-    marginBottom: 10,
   },
-  modalButtonConfirm: {
-    backgroundColor: COLORS.bg,
-    color: '#fefefe',
-  },
-  LDlogoutBtn: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 12,
-    paddingVertical: 5,
-    paddingHorizontal: 15,
-    textAlign: 'center',
-    maxWidth: '100%',
-    backgroundColor: COLORS.blue,
-    borderBottomWidth: 4,
-    borderBottomColor: COLORS.darkgreen,
-    borderRadius: 4,
-  },
-  LDlogoutBtnText: {
-    textAlign: 'center',
-    color: COLORS.white,
-    fontFamily: 'Baloo2-Bold',
-    fontSize: 15,
-
-    //textTransform: 'uppercase'
-  },
-  modalBoxborder: {
-    width: 10,
-  },
+  modalButtonConfirm: { backgroundColor: COLORS.bg },
 });

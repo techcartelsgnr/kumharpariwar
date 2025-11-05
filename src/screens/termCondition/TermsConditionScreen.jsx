@@ -56,7 +56,7 @@ export default function TermsConditionScreen() {
 
     return (
         <>
-            <StatusBarPage />
+            {/* <StatusBarPage /> */}
             <SafeAreaView
                 style={{ flex: 1, paddingBottom: 10, backgroundColor: COLORS.blue }}>
                 <HeaderCommon headername="Terms & Conditions" />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // api
@@ -15,6 +15,7 @@ import { COLORS } from '../../theme/theme';
 import InputField from '../../components/InputField';
 import { changePassword } from '../../redux/slices/authSlice';
 import { formstyles } from '../../components/FormsStyle';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 export default function ChangePassword() {

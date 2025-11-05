@@ -1,6 +1,9 @@
+
 export {default as Home} from '../home/HomeScreen'
 export {default as ProfileScreen} from '../profile/ProfileScreen'
 export {default as SearchScreen} from '../search/SearchScreen'
 export {default as NewsScreen} from '../news/NewsScreen'
 export {default as OurProud} from '../ourProud/OurProudScreen'
 export {default as TermsConditionScreen} from '../termCondition/TermsConditionScreen'
+export {default as MyContactScreen} from '../mycontact/MyContactScreen'
+

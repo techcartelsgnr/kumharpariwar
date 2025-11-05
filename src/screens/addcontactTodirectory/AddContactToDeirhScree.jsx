@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   View,
@@ -10,7 +9,6 @@ import {
 
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { Dropdown } from 'react-native-element-dropdown';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -26,6 +24,7 @@ import { addContact } from '../../redux/slices/MoreRepoSlice';
 import * as ImagePicker from 'react-native-image-picker';
 import { fetchBusinessCategoriesSlice, fetchSubCategorySlice } from '../../redux/slices/homeSlice';
 import { screenWidth } from '../../utils/constent';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function AddContactToDirectory() {
   const dispatch = useDispatch();
@@ -121,8 +120,8 @@ export default function AddContactToDirectory() {
 
   return (
     <>
-      <StatusBarPage />
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
+     
         <HeaderCommon headername="Add Contact to Directory" />
         <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: COLORS.white }}>
           <View style={styles.editProfileform}>

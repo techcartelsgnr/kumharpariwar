@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
@@ -8,6 +7,7 @@ import {
   FlatList,
   RefreshControl,
   ActivityIndicator,
+
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import StatusBarPage from '../../components/StatusBarPage';
@@ -15,6 +15,8 @@ import HeaderCommon from '../../components/HeaderCommon';
 import { COLORS } from '../../theme/theme';
 import { fetchOurProudSlice } from '../../redux/slices/homeSlice';
 import { useFocusEffect } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 export default function OurProud() {
   const dispatch = useDispatch();
@@ -135,30 +137,24 @@ export default function OurProud() {
   };
 
   return (
-    <>
-      {/* <StatusBarPage backgroundColor={COLORS.white} /> */}
-
-      
+    <SafeAreaView style={styles.safeArea}>
+      {/* <StatusBarPage backgroundColor={COLORS.blue} /> */}
       <HeaderCommon headername="Our Prouds" />
+
       <View style={[styles.listingAllcontent, { backgroundColor: COLORS.white }]}>
-        {!proudData.length === 0 ? (
+        {loading && proudData.length === 0 ? (
           <View style={styles.centeredContainer}>
-            <ActivityIndicator
-              size="large"
-              color={"red"}
-              style={styles.activityIndicator}
-            />
+            <ActivityIndicator size="large" color="red" style={styles.activityIndicator} />
           </View>
         ) : proudData.length > 0 ? (
           <FlatList
             data={proudData}
             renderItem={renderItem}
             keyExtractor={(item, index) => `${item.id}-${index}`}
-            numColumns={1}
-            showsVerticalScrollIndicator={true}
-            ListFooterComponent={loading && !refreshing ? renderLoader : null}
+            showsVerticalScrollIndicator={false}
             onEndReached={loadmoreItems}
             onEndReachedThreshold={0.2}
+            ListFooterComponent={loading ? renderLoader : null}
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
@@ -169,21 +165,24 @@ export default function OurProud() {
           </View>
         )}
       </View>
-    </>
-
+    </SafeAreaView>
   );
+
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: COLORS.blue
   },
   listingAllcontent: {
     flex: 1,
+    marginBottom: 50
   },
   ourProudsBox: {
     marginHorizontal: 10,
     marginTop: 10,
+
   },
   ourProudsLists: {
     padding: 10,
@@ -215,6 +214,7 @@ const styles = StyleSheet.create({
     height: 35,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.gray,
+
   },
   ourProudPostText: {
     width: '22%',
@@ -248,6 +248,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+
   },
   activityIndicator: {
     borderColor: '#fefefe',

@@ -1,7 +1,6 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
@@ -21,6 +20,7 @@ import { fetchNews } from '../../redux/slices/MoreRepoSlice';
 import { fullWidth, screenWidth } from '../../utils/constent';
 import { fetchNewsSlice } from '../../redux/slices/homeSlice';
 import RenderHtml from 'react-native-render-html';
+import { SafeAreaView } from 'react-native-safe-area-context';
 const NewsScreen = () => {
   const navigation = useNavigation();
   const [newsData, setNewsData] = useState([])
