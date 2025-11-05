@@ -40,7 +40,7 @@ export default function ChangePassword() {
   };
   return (
     <>
-      <StatusBarPage />
+      {/* <StatusBarPage /> */}
       <SafeAreaView
         style={{ flex: 1, paddingBottom: 10, backgroundColor: COLORS.blue }}>
         <HeaderCommon headername="Change Password" />

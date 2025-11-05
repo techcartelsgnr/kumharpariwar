@@ -74,7 +74,7 @@ const ProfileScreen = () => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
 
-            <StatusBarPage />
+            {/* <StatusBarPage /> */}
             <HeaderCommon headername="My Profile" />
             <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: COLORS.white }}>
                 <View style={styles.profile}>
@@ -102,7 +102,7 @@ const ProfileScreen = () => {
                             </TouchableOpacity>
                         </View>
                     </TouchableOpacity>
-                    <View>
+                    <View style={{alignItems: "center"}}>
                         <Text style={styles.profileName}>{name}</Text>
                         <Text style={styles.profileAddress}>{mobile}</Text>
                     </View>

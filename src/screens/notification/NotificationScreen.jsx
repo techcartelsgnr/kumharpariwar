@@ -39,7 +39,7 @@ const NotifcationScreen = () => {
   });
   return (
     <>
-      <StatusBarPage />
+      {/* <StatusBarPage /> */}
       <SafeAreaView style={{flex: 1, backgroundColor: COLORS.blue}}>
         <HeaderCommon headername="Notifications" />
         <ScrollView

@@ -87,7 +87,7 @@ export default function EditNewsScreen({ route }) {
   
   return (
     <>
-      <StatusBarPage />
+      {/* <StatusBarPage /> */}
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
         <HeaderCommon headername="Edit Post" />
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>

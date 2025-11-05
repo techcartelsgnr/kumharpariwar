@@ -16,10 +16,10 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
 
   OurProud,
-  MyContacts,
-  Terms,
-  About,
-  MyNews,
+  SearchScreen,
+  Home,
+  NewsScreen,
+  ProfileScreen,
 } from '../screens/index/index';
 import {COLORS} from '../theme/theme';
 import {logout} from '../redux/slices/authSlice';
@@ -89,9 +89,9 @@ export default function HomeStack() {
           ),
         }}
       />
-      <Tab.Screen
+       <Tab.Screen
         name="Search"
-        component={Search}
+        component={SearchScreen}
         options={{
           tabBarLabel: 'Search',
           tabBarIcon: ({focused, color}) => (
@@ -105,10 +105,10 @@ export default function HomeStack() {
             />
           ),
         }}
-      />
-      <Tab.Screen
+      /> 
+       <Tab.Screen
         name="News"
-        component={News}
+        component={NewsScreen}
         options={{
           tabBarLabel: 'Posts',
           tabBarIcon: ({focused, color}) => (
@@ -122,10 +122,10 @@ export default function HomeStack() {
             />
           ),
         }}
-      />
+      /> 
       <Tab.Screen
         name="MyProfile"
-        component={MyProfile}
+        component={ProfileScreen}
         options={{
           tabBarLabel: 'My Profile',
           tabBarIcon: ({focused, color}) => (
@@ -201,7 +201,7 @@ function CustomDrawerContent(props) {
           </TouchableOpacity>
 
           {/* My News */}
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => props.navigation.navigate('My News')}>
             <View style={styles.drawerRow}>
               <View
@@ -215,7 +215,7 @@ function CustomDrawerContent(props) {
               <View style={{flex: 1}} />
               <Ionicons name="chevron-forward-outline" size={20} />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           {/* My Contacts */}
           <TouchableOpacity
@@ -329,7 +329,8 @@ function DrawerNavigator() {
           backgroundColor: '#fefefe',
         },
       }}
-      drawerContent={props => <CustomDrawerContent {...props} />}>
+      drawerContent={props => <CustomDrawerContent {...props} />}
+    >
       <Drawer.Screen
         name="Home Page"
         component={Home}
@@ -338,29 +339,29 @@ function DrawerNavigator() {
         }}
       />
       <Drawer.Screen
-        name="My News"
-        component={MyNews}
+        name="Our Proud"
+        component={OurProud}
         options={{
           headerShown: false,
         }}
       />
       <Drawer.Screen
-        name="My Contacts"
-        component={MyContacts}
+        name="Search"
+        component={SearchScreen}
         options={{
           headerShown: false,
         }}
       />
       <Drawer.Screen
-        name="About"
-        component={About}
+        name="News"
+        component={NewsScreen}
         options={{
           headerShown: false,
         }}
       />
       <Drawer.Screen
-        name="Terms"
-        component={Terms}
+        name="My Profile"
+        component={ProfileScreen}
         options={{
           headerShown: false,
         }}
@@ -368,6 +369,7 @@ function DrawerNavigator() {
     </Drawer.Navigator>
   );
 }
+
 
 const styles = StyleSheet.create({
   hometabFirst: {

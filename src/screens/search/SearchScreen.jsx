@@ -9,6 +9,7 @@ import {
   FlatList,
   Linking,
   ActivityIndicator,
+  SafeAreaView
 } from 'react-native';
 
 import { Dropdown } from 'react-native-element-dropdown';
@@ -27,7 +28,6 @@ import { fetchBusinessCategories } from '../../redux/slices/homePageSlice';
 import { fetchSearchResultsSlice } from '../../redux/slices/homeSlice';
 import { screenHeight, screenWidth } from '../../utils/constent';
 
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function SearchScreen() {
   const [keyword, setKeyword] = useState('');
@@ -196,7 +196,7 @@ export default function SearchScreen() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
 
-      <StatusBarPage />
+      {/* <StatusBarPage /> */}
       <HeaderCommon headername="Search Contacts" />
       <View style={[styles.listingAllcontent, { backgroundColor: "#eee" }]}>
         <View style={{ marginHorizontal: 15, marginTop: 15 }}>

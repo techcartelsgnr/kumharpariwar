@@ -36,8 +36,6 @@ export default function Terms() {
   return (
       <SafeAreaView
         style={{flex: 1, paddingBottom: 10, backgroundColor: COLORS.blue}}>
-
-      <StatusBarPage />
         <HeaderCommon headername="About Kumhar Pariwar" />
         <ScrollView
           contentContainerStyle={{flexGrow: 1, backgroundColor: COLORS.white}}

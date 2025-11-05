@@ -182,7 +182,7 @@ const NewsScreen = () => {
   return (
     <SafeAreaView style={[styles.safeArea, { backgroundColor: COLORS.blue }]}>
 
-      <StatusBarPage />
+      {/* <StatusBarPage /> */}
       <HeaderCommon headername="Posts" />
       <View style={[styles.newsBox, { backgroundColor: COLORS.white }]}>
         {pending && !newsData.length ? (

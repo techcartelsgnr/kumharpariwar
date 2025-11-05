@@ -30,7 +30,7 @@ const formatData = (data, numColumns) => {
     }
     formattedData.push(row);
   }
-  console.log('formattedData========>', formattedData);
+  // console.log('formattedData========>', formattedData);
   return formattedData;
 };
 

@@ -135,8 +135,8 @@ export default function OurProud() {
   };
 
   return (
-    <SafeAreaView style={[styles.safeArea]}>
-      <StatusBarPage backgroundColor={COLORS.white} />
+    <>
+      {/* <StatusBarPage backgroundColor={COLORS.white} /> */}
 
       
       <HeaderCommon headername="Our Prouds" />
@@ -169,7 +169,7 @@ export default function OurProud() {
           </View>
         )}
       </View>
-    </SafeAreaView>
+    </>
 
   );
 }
@@ -177,7 +177,6 @@ export default function OurProud() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    marginBottom: 10,
   },
   listingAllcontent: {
     flex: 1,

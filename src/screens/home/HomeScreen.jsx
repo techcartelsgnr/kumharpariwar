@@ -11,6 +11,7 @@ import {
   RefreshControl,
   PermissionsAndroid,
   Platform,
+  SafeAreaView,
   Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -19,7 +20,7 @@ import RNFS from 'react-native-fs';
 import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import Shared from 'react-native-share';
 import Toast from 'react-native-toast-message';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 // Redux imports
 import { useDispatch, useSelector } from 'react-redux';
@@ -191,7 +192,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
-      <StatusBarPage />
+      {/* <StatusBarPage /> */}
       <View style={{ flex: 1, backgroundColor: COLORS.white }}>
         <SafeAreaView style={styles.container}>
           <Header name={'Sourabh Duharia'} />
