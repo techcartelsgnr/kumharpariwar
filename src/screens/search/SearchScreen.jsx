@@ -9,6 +9,7 @@ import {
   FlatList,
   Linking,
   ActivityIndicator,
+  StatusBar,
 } from 'react-native';
 
 import { Dropdown } from 'react-native-element-dropdown';
@@ -194,7 +195,12 @@ export default function SearchScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
-
+ <StatusBar
+      animated={true}
+      backgroundColor={COLORS.blue} // Android background
+      barStyle="light-content" // white text/icons for dark background
+      translucent={false} // ensures content not under status bar
+    />
       {/* <StatusBarPage /> */}
       <HeaderCommon headername="Search Contacts" />
       <View style={[styles.listingAllcontent, { backgroundColor: "#eee" }]}>

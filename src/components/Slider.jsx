@@ -62,7 +62,6 @@ export default BasicSlider = ({ sliderData = [] }) => {
           )}
           scrollEventThrottle={16}>
           {dummySlider.map((slider, imageIndex) => {
-            console.log("slider ===232323", slider)
             const img = slider.image
             return (
               <View key={imageIndex} style={{ width: windowWidth }}>

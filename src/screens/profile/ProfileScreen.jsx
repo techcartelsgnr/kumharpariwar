@@ -86,7 +86,7 @@ const ProfileScreen = () => {
                             {
                                 userInfo && (
                                     <Image
-                                        source={{ uri: userInfo?.user?.image }}
+                                        source={ userInfo?.user?.image ? { uri: userInfo.user.image } : require('../../../assets/profile.png') }
                                         style={styles.profileAvatar}
                                     />
                                 )

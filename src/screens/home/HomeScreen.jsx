@@ -12,6 +12,7 @@ import {
   PermissionsAndroid,
   Platform,
   Alert,
+  StatusBar
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -20,7 +21,7 @@ import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import Share from 'react-native-share';
 import Toast from 'react-native-toast-message';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import StatusBarPage from '../../components/StatusBarPage';
 // Redux imports
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../components/Header';
@@ -196,75 +197,94 @@ const HomeScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
-      <View style={{ flex: 1, backgroundColor: COLORS.white }}>
-        <Header name={'Welcome Back'} />
-        <ScrollView
-          nestedScrollEnabled={true}
-          style={{ width: '100%' }}
-          refreshControl={
-            <RefreshControl onRefresh={onRefresh} refreshing={pending} />
-          }>
-          <View style={{ marginTop: 10 }}>
-            {sliderData.length > 0 && <Slider sliderData={sliderData} />}
-          </View>
+  <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
+    <StatusBar
+      animated={true}
+      backgroundColor={COLORS.blue} // Android background
+      barStyle="light-content" // white text/icons for dark background
+      translucent={false} // ensures content not under status bar
+    />
 
-          <View style={{ marginTop: 0 }}>
-            <View style={styles.homecontentHeader}>
-              <Text style={styles.homecontentTitle}>Categories</Text>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate(navigationStrings.ALLBUSINESSLIST)
-                }>
-                <Text style={styles.homecontentLink}>See all</Text>
-              </TouchableOpacity>
-            </View>
-            <BusinessData categoryData={categoryData} />
-          </View>
+    <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+      <Header name={'Welcome Back'} />
 
-          <View style={styles.shareAppHome}>
+      <ScrollView
+        nestedScrollEnabled={true}
+        style={{ width: '100%' }}
+        refreshControl={
+          <RefreshControl onRefresh={onRefresh} refreshing={pending} />
+        }>
+        {/* Slider Section */}
+        <View style={{ marginTop: 10 }}>
+          {sliderData.length > 0 && <Slider sliderData={sliderData} />}
+        </View>
+
+        {/* Categories Section */}
+        <View style={{ marginTop: 0 }}>
+          <View style={styles.homecontentHeader}>
+            <Text style={styles.homecontentTitle}>Categories</Text>
             <TouchableOpacity
-              style={styles.shareAppBox}
-              onPress={async () => await RNShare.share({ message: referMessage })}>
-              <Ionicons name="share" style={styles.shareAppIcon} />
-              <Text style={styles.shareAppText}>Share App Now</Text>
+              onPress={() =>
+                navigation.navigate(navigationStrings.ALLBUSINESSLIST)
+              }>
+              <Text style={styles.homecontentLink}>See all</Text>
             </TouchableOpacity>
           </View>
+          <BusinessData categoryData={categoryData} />
+        </View>
 
-          <View style={styles.quotesBox}>
-            <Text style={styles.quotesHeading}>आज का सुविचार</Text>
-            <View style={styles.quotesMainBox}>
-              <View style={styles.quotesImageOuter}>
-                <Image
-                  source={{
-                    uri:
-                      thoughtOfTheDay ||
-                      'https://kumharpariwar.com/storage/slider/1745584801.jpg',
-                  }}
-                  style={styles.quotesImage}
-                />
-              </View>
-              <View style={styles.quotesBoxRight}>
-                <TouchableOpacity onPress={() => downloadImage(thoughtOfTheDay)}>
-                  <Text style={styles.quotesRightText}>Download</Text>
-                  <View style={styles.quotesBoxRightSocialBox}>
-                    <Ionicons name="download" style={styles.businessSubCatIcon} />
-                  </View>
-                </TouchableOpacity>
+        {/* Share App Section */}
+        <View style={styles.shareAppHome}>
+          <TouchableOpacity
+            style={styles.shareAppBox}
+            onPress={async () => await RNShare.share({ message: referMessage })}>
+            <Ionicons name="share" style={styles.shareAppIcon} />
+            <Text style={styles.shareAppText}>Share App Now</Text>
+          </TouchableOpacity>
+        </View>
 
-                <TouchableOpacity style={{ marginTop: 20 }} onPress={shareImage}>
-                  <Text style={styles.quotesRightText}>Share</Text>
-                  <View style={styles.quotesBoxRightSocialBox}>
-                    <Ionicons name="share" style={styles.businessSubCatIcon} />
-                  </View>
-                </TouchableOpacity>
-              </View>
+        {/* Thought of the Day Section */}
+        <View style={styles.quotesBox}>
+          <Text style={styles.quotesHeading}>आज का सुविचार</Text>
+          <View style={styles.quotesMainBox}>
+            <View style={styles.quotesImageOuter}>
+              <Image
+                source={{
+                  uri:
+                    thoughtOfTheDay ||
+                    'https://kumharpariwar.com/storage/slider/1745584801.jpg',
+                }}
+                style={styles.quotesImage}
+              />
+            </View>
+
+            <View style={styles.quotesBoxRight}>
+              <TouchableOpacity onPress={() => downloadImage(thoughtOfTheDay)}>
+                <Text style={styles.quotesRightText}>Download</Text>
+                <View style={styles.quotesBoxRightSocialBox}>
+                  <Ionicons
+                    name="download"
+                    style={styles.businessSubCatIcon}
+                  />
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={{ marginTop: 20 }}
+                onPress={shareImage}>
+                <Text style={styles.quotesRightText}>Share</Text>
+                <View style={styles.quotesBoxRightSocialBox}>
+                  <Ionicons name="share" style={styles.businessSubCatIcon} />
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
-        </ScrollView>
-      </View>
-    </SafeAreaView>
-  );
+        </View>
+      </ScrollView>
+    </View>
+  </SafeAreaView>
+);
+
 };
 
 const styles = StyleSheet.create({

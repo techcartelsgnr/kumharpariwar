@@ -9,7 +9,7 @@ const height = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   // header main home
   headerbox: {
-    // height: Platform.OS === 'android' ? screenHeight * 8 :  screenHeight * 10,
+    height: Platform.OS === 'android' ? screenHeight * 4 :  screenHeight * 5,
     backgroundColor: COLORS.blue,
     elevation: 0,
     paddingHorizontal: screenWidth * 5,

@@ -7,6 +7,7 @@ import {
   FlatList,
   RefreshControl,
   ActivityIndicator,
+  StatusBar,
 
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -138,6 +139,12 @@ export default function OurProud() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+       <StatusBar
+            animated={true}
+            backgroundColor={COLORS.blue} // Android background
+            barStyle="light-content" // white text/icons for dark background
+            translucent={false} // ensures content not under status bar
+          />
       {/* <StatusBarPage backgroundColor={COLORS.blue} /> */}
       <HeaderCommon headername="Our Prouds" />
 
