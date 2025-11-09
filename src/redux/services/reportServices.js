@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const repoAxios = axios.create({
-  baseURL: 'https://kumharpariwar.com/api',
+  baseURL: 'https://kumharpariwar.synergixtechnologies.com/api/',
   headers: {
     'Content-Type': 'application/json',
     'Acess-Control-Allow-Origin': '*',
@@ -18,6 +18,7 @@ const getNotifications = async ({token}) => {
       Authorization: 'Bearer ' + token,
     },
   });
+  console.log('res notificatiob', res)
   return res.data;
 };
 
@@ -180,7 +181,7 @@ const getThoughtOfTheDay = async ({token}) => {
       Authorization: 'Bearer ' + token,
     },
   });
-  console.log(res.data);
+  
   return res.data;
 };
 
@@ -251,6 +252,7 @@ const getContacts = async ({token, page}) => {
       Authorization: 'Bearer ' + token,
     },
   });
+  console.log('res get contact', res)
   return res.data;
 };
 
@@ -315,6 +317,19 @@ const newsById = async ({token, news_id}) => {
   return response.data;
 };
 
+const getGallery = async ({ token }) => {
+  const response = await repoAxios.get('/gallery', {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  console.log('Gallery API Response:', response.data);
+  return response;
+};
+
 const reportServices = {
   getNotifications,
   getTerms,
@@ -335,5 +350,6 @@ const reportServices = {
   deleteNewsByUser,
   updateNewsByUser,
   newsById,
+  getGallery
 };
 export default reportServices;

@@ -1,73 +1,77 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
   RefreshControl,
   ScrollView,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-
-// api
-import {useDispatch, useSelector} from 'react-redux';
-
-import StatusBarPage from '../../components/StatusBarPage';
 import HeaderCommon from '../../components/HeaderCommon';
 import { fetchNotifications } from '../../redux/slices/MoreRepoSlice';
 import { COLORS } from '../../theme/theme';
 
-const NotifcationScreen = () => {
-  const {token} = useSelector(state => state.auth);
-  const {pending, notifications} = useSelector(state => state.reports);
+const NotificationScreen = () => {
+  const { token } = useSelector(state => state.auth);
+  const { pending, notifications } = useSelector(state => state.reports);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(fetchNotifications({token}));
+    if (token) {
+      dispatch(fetchNotifications({ token }));
+    }
   }, [dispatch, token]);
 
   const onRefresh = () => {
-    dispatch(fetchNotifications({token}));
+    if (token) {
+      dispatch(fetchNotifications({ token }));
+    }
   };
 
-  const notificationsList = notifications.map((item, index) => {
-    return (
-      <View key={index} style={styles.notificationBox}>
-        <Text style={styles.notiBoxNameText}>{item.title}</Text>
-        <Text style={styles.notiBoxTimeText}>{item.description}</Text>
-      </View>
-    );
-  });
+  // 🧠 Safely map only if notifications is an array
+  const notificationsList =
+    Array.isArray(notifications) && notifications.length > 0
+      ? notifications.map((item, index) => (
+          <View key={index} style={styles.notificationBox}>
+            <Text style={styles.notiBoxNameText}>{item.title}</Text>
+            <Text style={styles.notiBoxTimeText}>{item.description}</Text>
+          </View>
+        ))
+      : null;
+
   return (
-    <>
-      {/* <StatusBarPage /> */}
-      <SafeAreaView style={{flex: 1, backgroundColor: COLORS.blue}}>
-        <HeaderCommon headername="Notifications" />
-        <ScrollView
-          refreshControl={
-            <RefreshControl onRefresh={onRefresh} refreshing={pending} 
-            />
-          }
-          contentContainerStyle={{paddingBottom: 20, flexGrow: 1, backgroundColor: COLORS.white,}}>
-          {pending ? (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}></View>
-          ) : (
-            notificationsList
-          )}
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
+      <HeaderCommon headername="Notifications" />
+      <ScrollView
+        refreshControl={
+          <RefreshControl onRefresh={onRefresh} refreshing={pending} />
+        }
+        contentContainerStyle={{
+          paddingBottom: 20,
+          flexGrow: 1,
+          backgroundColor: COLORS.white,
+        }}>
+        {pending ? (
+          <View style={styles.loaderBox}>
+            <Text>Loading...</Text>
+          </View>
+        ) : Array.isArray(notifications) && notifications.length > 0 ? (
+          notificationsList
+        ) : (
+          <View style={styles.emptyBox}>
+            <Text style={styles.emptyText}>No notifications found</Text>
+          </View>
+        )}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
-export default NotifcationScreen;
+export default NotificationScreen;
 
 const styles = StyleSheet.create({
-  // Notification
   notificationBox: {
     backgroundColor: '#eee',
     marginTop: 10,
@@ -87,5 +91,21 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 16,
     marginTop: 5,
+  },
+  loaderBox: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  emptyBox: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  emptyText: {
+    color: COLORS.dark,
+    fontFamily: 'Hind-Medium',
   },
 });

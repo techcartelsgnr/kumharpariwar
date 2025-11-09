@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,7 +11,6 @@ import {
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
-
 // api
 import { useDispatch, useSelector } from 'react-redux';
 import HeaderCommon from '../../components/HeaderCommon';
@@ -21,6 +19,7 @@ import StatusBarPage from '../../components/StatusBarPage';
 import { fetchSubCategory } from '../../redux/slices/homePageSlice';
 import navigationStrings from '../../utils/navigationStrings';
 import { fetchSubCategorySlice } from '../../redux/slices/homeSlice';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Dummy data for directory list items
 const dummyDirectoryData = [

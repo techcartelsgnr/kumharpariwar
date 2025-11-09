@@ -28,6 +28,7 @@ const initialState = {
   nextPageNewsListing: null,
   prevPageNewsListing: null,
   newsDetailById: {},
+   gallery: [],
 };
 
 // terms & conditions
@@ -360,6 +361,20 @@ export const newsById = createAsyncThunk(
       return thunkAPI.rejectWithValue(message);
     }
   },
+);
+
+export const getGallery = createAsyncThunk(
+  'gallery/getGallery',
+  async ({ token }, thunkAPI) => {
+    try {
+      const res = await reportServices.getGallery({ token });
+      return res.data;
+    } catch (e) {
+      const message =
+        e.response?.data?.message || e.message || e.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
 );
 
 export const MoreRepoSlice = createSlice({
@@ -747,6 +762,17 @@ export const MoreRepoSlice = createSlice({
       state.pending = false;
       state.error = true;
     });
+     builder.addCase(getGallery.pending, (state) => {
+        state.loading = true;
+      })
+      builder.addCase(getGallery.fulfilled, (state, action) => {
+        state.loading = false;
+        state.gallery = action.payload;
+      })
+      builder.addCase(getGallery.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 

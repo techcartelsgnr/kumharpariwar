@@ -69,7 +69,7 @@ export default function OurProud() {
       fetchOurProudData(nextPage);
     }
   };
-
+console.log('proudData', proudData)
   const renderLoader = () => {
     return currentPage < lastPage ? (
       <View style={styles.loaderContainer}>

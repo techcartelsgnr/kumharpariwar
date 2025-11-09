@@ -65,7 +65,7 @@ export default BasicSlider = ({ sliderData = [] }) => {
             const img = slider.image
             return (
               <View key={imageIndex} style={{ width: windowWidth }}>
-                <Image source={{ uri: `https://kumharpariwar.com/storage/slider/${img}` }} style={styles.card} />
+                <Image source={{ uri: `https://kumharpariwar.synergixtechnologies.com/${img}` }} style={styles.card} />
               </View>
             )
           })}

@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
@@ -12,7 +11,6 @@ import {
   FlatList,
   RefreshControl,
 } from 'react-native';
-
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../../theme/theme';
 import HeaderCommon from '../../components/HeaderCommon';
@@ -21,6 +19,7 @@ import { screenHeight, screenWidth } from '../../utils/constent';
 import { useFocusEffect } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchListingBySubCatSlice } from '../../redux/slices/homeSlice';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function DirectoryContact({ route }) {
   const openDialer = (phoneNumber) => {
@@ -137,7 +136,7 @@ export default function DirectoryContact({ route }) {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
-      <StatusBarPage />
+      {/* <StatusBarPage /> */}
       <HeaderCommon headername={headerName} />
       <View style={{ backgroundColor: '#eee', flex: 1 }}>
         <View style={[styles.listingAllcontent, { backgroundColor: "#eee" }]}>

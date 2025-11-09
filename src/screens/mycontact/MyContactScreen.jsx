@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   Text,
   View,
@@ -8,12 +7,14 @@ import {
   FlatList,
   RefreshControl,
   ActivityIndicator,
+  StatusBar,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMycontacts, resetContactsList } from '../../redux/slices/MoreRepoSlice';
 import StatusBarPage from '../../components/StatusBarPage';
 import HeaderCommon from '../../components/HeaderCommon';
 import { COLORS } from '../../theme/theme';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function MyContactScreen() {
   const dispatch = useDispatch();
@@ -23,14 +24,19 @@ export default function MyContactScreen() {
     allContacts = [],
     nextPageContactListing,
   } = useSelector(state => state.reports);
-
+  const fetchMycontact = async () => {
+    const res = await dispatch(fetchMycontacts({ token }));
+    console.log('res my contact', res.data)
+  }
   useEffect(() => {
     onRefresh();
+
+
   }, []);
 
   const onRefresh = () => {
     dispatch(resetContactsList())
-    dispatch(fetchMycontacts({ token }));
+    fetchMycontact()
   };
 
   const renderLoader = () => {
@@ -70,10 +76,10 @@ export default function MyContactScreen() {
           </View>
           <View style={styles.newsRight}>
             <Text numberOfLines={1} style={styles.newsCateLabel}>
-            Name:   {name}
+              Name:   {name}
             </Text>
             <Text style={styles.newsCateLabel} numberOfLines={1}>
-            Mobile: {call}
+              Mobile: {call}
             </Text>
             <Text style={styles.newsDescription}>Gender: {gender}</Text>
             <Text style={styles.newsCateLabel} numberOfLines={3}>
@@ -96,11 +102,10 @@ export default function MyContactScreen() {
       </View>
     );
   };
-
   return (
     <>
-      {/* <StatusBarPage /> */}
-      <SafeAreaView style={styles.safeArea}>
+      {/* <StatusBar backgroundColor={COLORS.bg} barStyle={"dark-content"} /> */}
+      <SafeAreaView style={{ flex: 1 , backgroundColor: COLORS.blue}}>
         <HeaderCommon headername="My Contacts" />
         <View style={styles.newsBox}>
           {pending && !allContacts.length ? (
@@ -140,12 +145,15 @@ export default function MyContactScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    //  paddingBottom: 10, 
+     backgroundColor: COLORS.blue 
   },
   newsBox: {
     flex: 1,
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
     marginTop: 10,
     paddingBottom: 10,
+    backgroundColor: COLORS.white
   },
   newsSection: {
     padding: 15,
@@ -182,13 +190,13 @@ const styles = StyleSheet.create({
   newsCateLabel: {
     fontSize: 12,
     fontFamily: 'Baloo2-Bold',
-    fontWeight:'bold'
+    fontWeight: 'bold'
   },
   newsDescription: {
     fontSize: 12,
     fontFamily: 'Baloo2-Bold',
     color: COLORS.dark,
-    fontWeight:'bold'
+    fontWeight: 'bold'
   },
   newsBottomSection: {
     paddingTop: 10,

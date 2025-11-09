@@ -4,7 +4,7 @@ import messaging from '@react-native-firebase/messaging';
 // import PushNotification, {Importance} from 'react-native-push-notification';
 
 const authAxios = axios.create({
-  baseURL: 'https://kumharpariwar.com/api',
+  baseURL: 'https://kumharpariwar.synergixtechnologies.com/api/',
   headers: {
     'Content-Type': 'application/json',
     'Acess-Control-Allow-Origin': '*',

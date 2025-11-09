@@ -30,6 +30,7 @@ import {
   TermsConditionScreen,
   MyContactScreen,
 } from '../screens/index/index';
+import GallaryScreen from '../screens/gallery/GallaryScreen';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -223,6 +224,15 @@ function CustomDrawerContent(props) {
               <Ionicons name="chevron-forward-outline" size={20} color="white" />
             </View>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.navigate('GalleryScreen')}>
+            <View style={styles.drawerRow}>
+              <View style={[styles.myProfileIcon, { backgroundColor: '#0084a8' }]}>
+                <Ionicons name="document-text" style={styles.myProfileMainIcon} />
+              </View>
+              <Text style={styles.drawerText}>Gallary</Text>
+              <Ionicons name="chevron-forward-outline" size={20} color="white" />
+            </View>
+          </TouchableOpacity>
         </DrawerContentScrollView>
 
         {/* Logout */}
@@ -288,6 +298,7 @@ export default function AppDrawer() {
       {/* Keep MainTabs as one drawer screen */}
       <Drawer.Screen name="MainTabs" component={MainTabs} />
       <Drawer.Screen name="MyContactScreen" component={MyContactScreen} />
+      <Drawer.Screen name="GalleryScreen" component={GallaryScreen} />
       <Drawer.Screen
         name="TermsConditionScreen"
         component={TermsConditionScreen}

@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import {
-    SafeAreaView,
     ScrollView,
     StyleSheet,
     Text,
@@ -8,7 +7,6 @@ import {
     useWindowDimensions,
     RefreshControl,
 } from 'react-native';
-
 import RenderHtml from 'react-native-render-html';
 
 // api
@@ -17,6 +15,7 @@ import StatusBarPage from '../../components/StatusBarPage';
 import HeaderCommon from '../../components/HeaderCommon';
 import { COLORS } from '../../theme/theme';
 import { fetchTerms } from '../../redux/slices/MoreRepoSlice';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function TermsConditionScreen() {
     const { width } = useWindowDimensions();
