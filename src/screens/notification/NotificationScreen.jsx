@@ -5,10 +5,11 @@ import {
   View,
   RefreshControl,
   ScrollView,
+  useWindowDimensions,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import RenderHTML from 'react-native-render-html';
 import HeaderCommon from '../../components/HeaderCommon';
 import { fetchNotifications } from '../../redux/slices/MoreRepoSlice';
 import { COLORS } from '../../theme/theme';
@@ -17,7 +18,7 @@ const NotificationScreen = () => {
   const { token } = useSelector(state => state.auth);
   const { pending, notifications } = useSelector(state => state.reports);
   const dispatch = useDispatch();
-
+  const { width } = useWindowDimensions();
   useEffect(() => {
     if (token) {
       dispatch(fetchNotifications({ token }));
@@ -29,17 +30,36 @@ const NotificationScreen = () => {
       dispatch(fetchNotifications({ token }));
     }
   };
-
+ const source = (item) => {
+  return { html: item.description || '<div></div>' };
+};
   // 🧠 Safely map only if notifications is an array
   const notificationsList =
-    Array.isArray(notifications) && notifications.length > 0
-      ? notifications.map((item, index) => (
-          <View key={index} style={styles.notificationBox}>
-            <Text style={styles.notiBoxNameText}>{item.title}</Text>
-            <Text style={styles.notiBoxTimeText}>{item.description}</Text>
+  Array.isArray(notifications) && notifications.length > 0
+    ? notifications.map((item, index) => (
+        <View key={index} style={styles.notificationBox}>
+          <Text style={styles.notiBoxNameText}>{item.title}</Text>
+
+          <View style={{ marginTop: 5 }}>
+            <RenderHTML
+              contentWidth={width - 32}
+              source={{ html: item.description || '<div></div>' }}
+              baseStyle={styles.notiBoxTimeText}
+              tagsStyles={{
+                p: { marginVertical: 6, lineHeight: 20 },
+                a: { color: '#0A84FF' },
+                strong: { fontWeight: '700' },
+                em: { fontStyle: 'italic' },
+              }}
+              renderersProps={{
+                img: { enableExperimentalPercentWidth: true },
+              }}
+            />
           </View>
-        ))
-      : null;
+        </View>
+      ))
+    : null;
+
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>

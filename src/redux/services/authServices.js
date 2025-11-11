@@ -12,10 +12,11 @@ const authAxios = axios.create({
   },
 });
 
-const login = async ({mobile, password}) => {
+const login = async ({mobile, password, fcmToken}) => {
   const response = await authAxios.post(`/login`, {
     mobile: mobile,
     pin: password,
+    fcm_token : fcmToken
   });
   if (response.data.errors === undefined) {
     AsyncStorage.setItem('user_info', JSON.stringify(response.data)).then(

@@ -9,7 +9,7 @@ const repoAxios = axios.create({
   },
 });
 
-const getNotifications = async ({token}) => {
+const getNotifications = async ({ token }) => {
   const res = await repoAxios.get(`/notification`, {
     headers: {
       'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ const getNotifications = async ({token}) => {
 };
 
 // terms & conditions
-const getTerms = async ({token}) => {
+const getTerms = async ({ token }) => {
   //   console.log('page =>' + page);
   const res = await repoAxios.get(`/get_cmspage/terms-condition`, {
     headers: {
@@ -37,7 +37,7 @@ const getTerms = async ({token}) => {
 };
 
 // about us
-const getAbout = async ({token}) => {
+const getAbout = async ({ token }) => {
   //   console.log('page =>' + page);
   const res = await repoAxios.get(`/get_cmspage/about-us`, {
     headers: {
@@ -50,7 +50,7 @@ const getAbout = async ({token}) => {
   return res.data;
 };
 // refund policy
-const getRefund = async ({token}) => {
+const getRefund = async ({ token }) => {
   //   console.log('page =>' + page);
   const res = await repoAxios.get(`/get_cmspage/refund-policy`, {
     headers: {
@@ -64,7 +64,7 @@ const getRefund = async ({token}) => {
 };
 
 // privacy policy
-const getPrivacy = async ({token}) => {
+const getPrivacy = async ({ token }) => {
   //   console.log('page =>' + page);
   const res = await repoAxios.get(`/get_cmspage/privacy-policy`, {
     headers: {
@@ -106,7 +106,7 @@ const fetchListingBySubCat = async ({
 };
 
 // fetch Our Proud
-const fetchOurProud = async ({token, currentPageSubCatListing}) => {
+const fetchOurProud = async ({ token, currentPageSubCatListing }) => {
   const res = await repoAxios.get(
     `/our_proud?users=${currentPageSubCatListing}`,
     {
@@ -126,7 +126,7 @@ const fetchOurProud = async ({token, currentPageSubCatListing}) => {
 };
 
 // fetch News
-const fetchNews = async ({token, currentPageSubCatListing}) => {
+const fetchNews = async ({ token, currentPageSubCatListing }) => {
   const res = await repoAxios.get(`/news?users=${currentPageSubCatListing}`, {
     headers: {
       'Content-Type': 'application/json',
@@ -140,7 +140,7 @@ const fetchNews = async ({token, currentPageSubCatListing}) => {
 };
 
 // fetch News
-const fetchNewsByUser = async ({token, currentPageNewsListing}) => {
+const fetchNewsByUser = async ({ token, currentPageNewsListing }) => {
   const res = await repoAxios.get(
     `/news_added_by_user?users=${currentPageNewsListing}`,
     {
@@ -157,7 +157,7 @@ const fetchNewsByUser = async ({token, currentPageNewsListing}) => {
 };
 
 // getreffermessage
-const getReferMessage = async ({token}) => {
+const getReferMessage = async ({ token }) => {
   //   console.log('page =>' + page);
   const res = await repoAxios.get(`/referral_message`, {
     headers: {
@@ -171,7 +171,7 @@ const getReferMessage = async ({token}) => {
 };
 // suvichar
 // getreffermessage
-const getThoughtOfTheDay = async ({token}) => {
+const getThoughtOfTheDay = async ({ token }) => {
   //   console.log('page =>' + page);
   const res = await repoAxios.get(`/thought_of_theday`, {
     headers: {
@@ -181,7 +181,7 @@ const getThoughtOfTheDay = async ({token}) => {
       Authorization: 'Bearer ' + token,
     },
   });
-  
+
   return res.data;
 };
 
@@ -215,7 +215,7 @@ const getSearchResults = async ({
 };
 
 //get cities
-const getCities = async ({token}) => {
+const getCities = async ({ token }) => {
   const res = await repoAxios.get('/get_cities', {
     headers: {
       'Content-Type': 'application/json',
@@ -227,7 +227,7 @@ const getCities = async ({token}) => {
   return res.data;
 };
 
-const addContactToDirectory = async ({token, data}) => {
+const addContactToDirectory = async ({ token, data }) => {
   const response = await axios({
     method: 'post',
     url: 'https://kumharpariwar.com/api/add_contact',
@@ -242,7 +242,7 @@ const addContactToDirectory = async ({token, data}) => {
 };
 
 //contacts
-const getContacts = async ({token, page}) => {
+const getContacts = async ({ token, page }) => {
   console.log('page =>' + page);
   const res = await repoAxios.get(`/my_contacts?users=${page}`, {
     headers: {
@@ -256,7 +256,7 @@ const getContacts = async ({token, page}) => {
   return res.data;
 };
 
-const addNews = async ({token, data}) => {
+const addNews = async ({ token, data }) => {
   const response = await axios({
     method: 'post',
     url: 'https://kumharpariwar.com/api/addnews_by_user',
@@ -270,7 +270,7 @@ const addNews = async ({token, data}) => {
   return response.data;
 };
 
-const deleteNewsByUser = async ({token, news_id}) => {
+const deleteNewsByUser = async ({ token, news_id }) => {
   const res = await repoAxios.post(
     '/deletenews_by_user',
     {
@@ -288,7 +288,7 @@ const deleteNewsByUser = async ({token, news_id}) => {
   return res.data;
 };
 
-const updateNewsByUser = async ({token, data}) => {
+const updateNewsByUser = async ({ token, data }) => {
   const response = await axios({
     method: 'post',
     url: 'https://kumharpariwar.com/api/updatenews_by_user',
@@ -303,7 +303,7 @@ const updateNewsByUser = async ({token, data}) => {
 };
 
 // suggestions
-const newsById = async ({token, news_id}) => {
+const newsById = async ({ token, news_id }) => {
   const response = await repoAxios.get(`/news_detail/${news_id}`, {
     headers: {
       'Content-Type': 'application/json',
@@ -312,7 +312,7 @@ const newsById = async ({token, news_id}) => {
       Authorization: 'Bearer ' + token,
     },
   },
-);
+  );
   console.log('******************************', response.data);
   return response.data;
 };
@@ -329,6 +329,30 @@ const getGallery = async ({ token }) => {
   console.log('Gallery API Response:', response.data);
   return response;
 };
+const getKarykerni = async ({ token }) => {
+  const response = await repoAxios.get('/karyakarini', {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  console.log('getKarykerni API Response:', response.data);
+  return response;
+};
+const getAllKarykerni = async ({ token, id }) => {
+    const response = await repoAxios.get(`/karyakarini_members/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log('getAllKarykerni API Response:', response.data);
+    return response;
+  };
 
 const reportServices = {
   getNotifications,
@@ -350,6 +374,8 @@ const reportServices = {
   deleteNewsByUser,
   updateNewsByUser,
   newsById,
-  getGallery
+  getGallery,
+  getKarykerni,
+  getAllKarykerni
 };
 export default reportServices;

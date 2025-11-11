@@ -376,6 +376,33 @@ export const getGallery = createAsyncThunk(
     }
   }
 );
+export const getKarykerni = createAsyncThunk(
+  'gallery/getGallery',
+  async ({ token }, thunkAPI) => {
+    try {
+      const res = await reportServices.getKarykerni({ token });
+      return res.data;
+    } catch (e) {
+      const message =
+        e.response?.data?.message || e.message || e.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+export const getAllKarykerni = createAsyncThunk(
+  'gallery/getGallery',
+  async ({ token, id }, thunkAPI) => {
+    // id should be the member id
+    try {
+      const res = await reportServices.getAllKarykerni({ token, id });
+      // return the full response or res.data depending on your convention
+      return res.data; // so res.payload in component contains { data, status_code, message }
+    } catch (e) {
+      const message = e.response?.data?.message || e.message || e.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const MoreRepoSlice = createSlice({
   name: 'MoreRepo',

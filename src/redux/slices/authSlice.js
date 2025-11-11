@@ -41,10 +41,10 @@ export const chkLogin = createAsyncThunk('auth/chkLogin', async thunkAPI => {
 
 export const fetchLogin = createAsyncThunk(
   'auth/login',
-  async ({mobile, password}, thunkAPI) => {
+  async ({mobile, password , fcmToken}, thunkAPI) => {
     try {
      
-     const res = await authService.login({mobile, password});
+     const res = await authService.login({mobile, password , fcmToken});
       return res
     } catch (e) {
       console.log('in catch', e);

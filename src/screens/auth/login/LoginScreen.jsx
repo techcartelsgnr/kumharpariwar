@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -9,6 +9,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  PermissionsAndroid,
   Alert,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -22,49 +23,75 @@ import { fetchLogin } from '../../../redux/slices/authSlice';
 import commanServices from '../../../redux/services/commanServices';
 import navigationStrings from '../../../utils/navigationStrings';
 import LinearGradient from 'react-native-linear-gradient';
+import { fetchFCMToken } from '../../../utils/fservices';
 import Toast from 'react-native-toast-message';
+import {
+  getMessaging,
+  requestPermission,
+  onMessage,
+  onNotificationOpenedApp,
+  getInitialNotification,
+} from '@react-native-firebase/messaging';
+import { getApp } from '@react-native-firebase/app';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { pending } = useSelector(state => state.auth);
-
+ const [fcmToken, setFcmToken] = useState('');
   const [mobile, setMobile] = useState('');
   const [password, setPassword] = useState('');
 
 
+ useEffect(() => {
+  (async () => {
+    if (Platform.OS === 'android' && Platform.Version >= 33) {
+      await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+    }
 
+    const messaging = getMessaging(getApp());
+    const authStatus = await requestPermission(messaging);
+    const enabled = authStatus === 1 || authStatus === 2;
+    if (enabled) {
+      const token = await fetchFCMToken();
+      if (token) {
+        setFcmToken(token);
+        console.log('✅ Saved FCM Token:', token);
+      }
+    }
+  })();
+}, []);
   // ✅ Separate handler function for login logic
- const handleLogin = async () => {
-  if (mobile == "") {
-    // Alert.alert("error", "validation error")
+  const handleLogin = async () => {
+    if (mobile == "") {
+      // Alert.alert("error", "validation error")
 
-    commanServices.showToast('Mobile and Pin cannot be blank');
-    return;
-  }
-
-  try {
-    const res = await dispatch(fetchLogin({ mobile, password })).unwrap();
-    console.log('res', res);
-
-    // ✅ Check for error response from backend
-    if (res.errors) {
-      commanServices.showToast(res.errors); // Show Hindi error message
+      commanServices.showToast('Mobile and Pin cannot be blank');
       return;
     }
 
-    // ✅ Check if login is successful (if your API sends token or user info)
-    if (res.status === true || res.token || res.user) {
-      commanServices.showToast('Login successful!');
-      navigation.replace(navigationStrings.HOME);
-    } else {
-      commanServices.showToast(res.message || 'Invalid login details');
+    try {
+      const res = await dispatch(fetchLogin({ mobile, password , fcmToken })).unwrap();
+      console.log('res', res);
+
+      // ✅ Check for error response from backend
+      if (res.errors) {
+        commanServices.showToast(res.errors); // Show Hindi error message
+        return;
+      }
+
+      // ✅ Check if login is successful (if your API sends token or user info)
+      if (res.status === true || res.token || res.user) {
+        commanServices.showToast('Login successful!');
+        navigation.replace(navigationStrings.HOME);
+      } else {
+        commanServices.showToast(res.message || 'Invalid login details');
+      }
+    } catch (error) {
+      console.log('Login failed:', error);
+      commanServices.showToast(error || 'Something went wrong, please try again');
     }
-  } catch (error) {
-    console.log('Login failed:', error);
-    commanServices.showToast(error || 'Something went wrong, please try again');
-  }
-};
+  };
 
 
   return (
