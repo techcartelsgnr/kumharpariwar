@@ -77,7 +77,7 @@ export default function EditProfileScreen() {
 
     try {
       const res = await dispatch(updateProfilePic({ token, formData })).unwrap();
-
+     console.log('res profile updare', res)
       if (res.status_code == 200) {
         navigation.goBack();
         Toast.show({

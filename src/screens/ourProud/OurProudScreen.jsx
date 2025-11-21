@@ -69,7 +69,7 @@ export default function OurProud() {
       fetchOurProudData(nextPage);
     }
   };
-console.log('proudData', proudData)
+  console.log('proudData', proudData)
   const renderLoader = () => {
     return currentPage < lastPage ? (
       <View style={styles.loaderContainer}>
@@ -139,39 +139,42 @@ console.log('proudData', proudData)
 
   return (
     <SafeAreaView style={styles.safeArea}>
-       <StatusBar
-            animated={true}
-            backgroundColor={COLORS.blue} // Android background
-            barStyle="light-content" // white text/icons for dark background
-            translucent={false} // ensures content not under status bar
-          />
-      {/* <StatusBarPage backgroundColor={COLORS.blue} /> */}
-      <HeaderCommon headername="Our Prouds" />
+      <View style={{ flex: 1, backgroundColor: COLORS.white }}>
+        <StatusBar
+          animated={true}
+          backgroundColor={COLORS.blue} // Android background
+          barStyle="light-content" // white text/icons for dark background
+          translucent={false} // ensures content not under status bar
+        />
+        {/* <StatusBarPage backgroundColor={COLORS.blue} /> */}
+        <HeaderCommon headername="Our Prouds" />
 
-      <View style={[styles.listingAllcontent, { backgroundColor: COLORS.white }]}>
-        {loading && proudData.length === 0 ? (
-          <View style={styles.centeredContainer}>
-            <ActivityIndicator size="large" color="red" style={styles.activityIndicator} />
-          </View>
-        ) : proudData.length > 0 ? (
-          <FlatList
-            data={proudData}
-            renderItem={renderItem}
-            keyExtractor={(item, index) => `${item.id}-${index}`}
-            showsVerticalScrollIndicator={false}
-            onEndReached={loadmoreItems}
-            onEndReachedThreshold={0.2}
-            ListFooterComponent={loading ? renderLoader : null}
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }
-          />
-        ) : (
-          <View style={styles.centeredContainer}>
-            <Text style={styles.noRecordText}>No Record Found</Text>
-          </View>
-        )}
+        <View style={[styles.listingAllcontent, { backgroundColor: COLORS.white }]}>
+          {loading && proudData.length === 0 ? (
+            <View style={styles.centeredContainer}>
+              <ActivityIndicator size="large" color="red" style={styles.activityIndicator} />
+            </View>
+          ) : proudData.length > 0 ? (
+            <FlatList
+              data={proudData}
+              renderItem={renderItem}
+              keyExtractor={(item, index) => `${item.id}-${index}`}
+              showsVerticalScrollIndicator={false}
+              onEndReached={loadmoreItems}
+              onEndReachedThreshold={0.2}
+              ListFooterComponent={loading ? renderLoader : null}
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }
+            />
+          ) : (
+            <View style={styles.centeredContainer}>
+              <Text style={styles.noRecordText}>No Record Found</Text>
+            </View>
+          )}
+        </View>
       </View>
+
     </SafeAreaView>
   );
 

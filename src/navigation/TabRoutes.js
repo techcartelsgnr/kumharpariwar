@@ -23,6 +23,8 @@ import { logout } from '../redux/slices/authSlice';
 import { COLORS } from '../theme/theme';
 import karykarni from '../screens/karaykarni/karykarni'
 import AllKaraykarni from '../screens/karaykarni/AllKaraykarni'
+import HostalScreen from '../screens/hostal/HostalScreen'
+import GuestHouseScreen from '../screens/guestHouse/GuestHouseScreen'
 // Screens
 import {
   Home,
@@ -110,10 +112,10 @@ function MainTabs() {
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, focused }) => (
             <View style={[styles.tabIconContainer, focused && styles.tabIconContainerActive]}>
-              <Ionicons 
-                name={focused ? "home" : "home-outline"} 
-                size={24} 
-                color={color} 
+              <Ionicons
+                name={focused ? "home" : "home-outline"}
+                size={24}
+                color={color}
               />
             </View>
           ),
@@ -126,10 +128,10 @@ function MainTabs() {
           tabBarLabel: 'Our Proud',
           tabBarIcon: ({ color, focused }) => (
             <View style={[styles.tabIconContainer, focused && styles.tabIconContainerActive]}>
-              <FontAwesome5 
-                name="award" 
-                size={20} 
-                color={color} 
+              <FontAwesome5
+                name="award"
+                size={20}
+                color={color}
               />
             </View>
           ),
@@ -142,10 +144,10 @@ function MainTabs() {
           tabBarLabel: 'Search',
           tabBarIcon: ({ color, focused }) => (
             <View style={[styles.tabIconContainer, focused && styles.tabIconContainerActive]}>
-              <Ionicons 
-                name={focused ? "search" : "search-outline"} 
-                size={24} 
-                color={color} 
+              <Ionicons
+                name={focused ? "search" : "search-outline"}
+                size={24}
+                color={color}
               />
             </View>
           ),
@@ -158,10 +160,10 @@ function MainTabs() {
           tabBarLabel: 'Posts',
           tabBarIcon: ({ color, focused }) => (
             <View style={[styles.tabIconContainer, focused && styles.tabIconContainerActive]}>
-              <Ionicons 
-                name={focused ? "newspaper" : "newspaper-outline"} 
-                size={22} 
-                color={color} 
+              <Ionicons
+                name={focused ? "newspaper" : "newspaper-outline"}
+                size={22}
+                color={color}
               />
             </View>
           ),
@@ -174,10 +176,10 @@ function MainTabs() {
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, focused }) => (
             <View style={[styles.tabIconContainer, focused && styles.tabIconContainerActive]}>
-              <Ionicons 
-                name={focused ? "person" : "person-outline"} 
-                size={24} 
-                color={color} 
+              <Ionicons
+                name={focused ? "person" : "person-outline"}
+                size={24}
+                color={color}
               />
             </View>
           ),
@@ -201,43 +203,64 @@ function CustomDrawerContent(props) {
   };
   const handleCancelLogout = () => setModalVisible(false);
 
-  const menuItems = [
-    {
-      name: 'Home Page',
-      icon: 'home',
-      color: '#5d3bf1',
-      onPress: () => props.navigation.navigate('MainTabs'),
-      iconType: 'ionicons'
-    },
-    {
-      name: 'My Contacts',
-      icon: 'contacts',
-      color: '#30d14e',
-      onPress: () => props.navigation.navigate('MyContactScreen'),
-      iconType: 'material'
-    },
-    {
-      name: 'Gallery',
-      icon: 'image',
-      color: '#ff6b6b',
-      onPress: () => props.navigation.navigate('GalleryScreen'),
-      iconType: 'material'
-    },
-    {
-      name: 'KaryKarni',
-      icon: 'people',
-      color: '#4ecdc4',
-      onPress: () => props.navigation.navigate('karykarniScreen'),
-      iconType: 'material'
-    },
-    {
-      name: 'Terms & Conditions',
-      icon: 'document-text',
-      color: '#0084a8',
-      onPress: () => props.navigation.navigate('TermsConditionScreen'),
-      iconType: 'ionicons'
-    },
-  ];
+ const menuItems = [
+  {
+    name: 'Home Page',
+    hindiName: 'होम पेज',
+    icon: 'home',
+    color: '#5d3bf1',
+    onPress: () => props.navigation.navigate('MainTabs'),
+    iconType: 'ionicons'
+  },
+  {
+    name: 'My Contacts',
+    hindiName: 'मेरे संपर्क',
+    icon: 'contacts',
+    color: '#30d14e',
+    onPress: () => props.navigation.navigate('MyContactScreen'),
+    iconType: 'material'
+  },
+  {
+    name: 'Gallery',
+    hindiName: 'गैलरी',
+    icon: 'collections',
+    color: '#ff6b6b',
+    onPress: () => props.navigation.navigate('GalleryScreen'),
+    iconType: 'material'
+  },
+  {
+    name: 'कार्यकारिणी',
+    hindiName: 'कार्यकारिणी',
+    icon: 'groups',
+    color: '#4ecdc4',
+    onPress: () => props.navigation.navigate('karykarniScreen'),
+    iconType: 'material'
+  },
+  {
+    name: 'Hostel/छात्रावास',
+    hindiName: 'छात्रावास',
+    icon: 'apartment',
+    color: '#ffa726',
+    onPress: () => props.navigation.navigate('HostalScreen'),
+    iconType: 'material'
+  },
+  {
+    name: 'Guest House',
+    hindiName: 'गेस्ट हाउस',
+    icon: 'house-siding',
+    color: '#ab47bc',
+    onPress: () => props.navigation.navigate('GuestHouseScreen'),
+    iconType: 'material'
+  },
+  {
+    name: 'Terms & Conditions',
+    hindiName: 'नियम और शर्तें',
+    icon: 'description',
+    color: '#0084a8',
+    onPress: () => props.navigation.navigate('TermsConditionScreen'),
+    iconType: 'material'
+  },
+];
 
   const renderIcon = (iconType, iconName, color, size = 20) => {
     switch (iconType) {
@@ -260,11 +283,11 @@ function CustomDrawerContent(props) {
 
       {/* Drawer Content Overlay */}
       <View style={{ flex: 1, paddingBottom: insets.bottom }}>
-        <DrawerContentScrollView 
-          {...props} 
-          contentContainerStyle={{ 
+        <DrawerContentScrollView
+          {...props}
+          contentContainerStyle={{
             backgroundColor: 'transparent',
-            paddingTop: insets.top + 20 
+            paddingTop: insets.top + 20
           }}
         >
           {/* Header Section */}
@@ -350,9 +373,9 @@ export default function AppDrawer() {
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerShown: false,
-        drawerStyle: { 
-          backgroundColor: 'transparent', 
-          width: 300 
+        drawerStyle: {
+          backgroundColor: 'transparent',
+          width: 300
         },
         sceneContainerStyle: { backgroundColor: 'transparent' },
         drawerType: 'front',
@@ -362,6 +385,9 @@ export default function AppDrawer() {
       <Drawer.Screen name="GalleryScreen" component={GallaryScreen} />
       <Drawer.Screen name="TermsConditionScreen" component={TermsConditionScreen} />
       <Drawer.Screen name="karykarniScreen" component={karykarni} />
+      <Drawer.Screen name="HostalScreen" component={HostalScreen} />
+      <Drawer.Screen name="GuestHouseScreen" component={GuestHouseScreen} />
+      
       <Drawer.Screen name="AllKaraykarniScreen" component={AllKaraykarni} />
     </Drawer.Navigator>
   );

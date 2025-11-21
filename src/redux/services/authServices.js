@@ -126,7 +126,7 @@ const resetPassword = async ({ mobile, otp, password }) => {
 const updateProfilePic = async ({token, formData}) => {
   const response = await axios({
     method: 'post',
-    url: 'https://kumharpariwar.com/api/user_image',
+    url: 'https://kumharpariwar.synergixtechnologies.com/api/user_image',
     data: formData,
     headers: {
       'Content-Type': 'multipart/form-data',

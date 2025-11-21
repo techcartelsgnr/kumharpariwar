@@ -1,5 +1,4 @@
 import {
-    SafeAreaView,
     StyleSheet,
     Text,
     View,
@@ -17,6 +16,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { getAllGuestHouseSlice } from '../../redux/slices/homeSlice';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const GuestHouseScreen = () => {
     const dispatch = useDispatch();
@@ -70,12 +70,15 @@ const GuestHouseScreen = () => {
 
   
 
-    useFocusEffect(useCallback(()=>{
-        setGuestHouses([])
-        getAllGuestHouse(1);
+    // useFocusEffect(useCallback(()=>{
+    //     setGuestHouses([])
+    //     getAllGuestHouse(1);
 
-    },[]))
-
+    // },[]))
+useEffect(()=>{
+    // setGuestHouses([])
+    getAllGuestHouse(1);
+},[])
 
 
     const renderItem = ({ item }) => (
@@ -115,7 +118,7 @@ const GuestHouseScreen = () => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
             <HeaderCommon headername={'Guest House'} />
-            <View style={{ flex: 1, backgroundColor: COLORS.bg, padding: 10 }}>
+            <View style={{ flex: 1, backgroundColor: COLORS.white, padding: 10 }}>
                 <FlatList
                     data={guestHouses}
                     renderItem={renderItem}

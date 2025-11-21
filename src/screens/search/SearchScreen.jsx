@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  
   StyleSheet,
   Text,
   View,
@@ -71,53 +70,51 @@ export default function SearchScreen() {
     label: selectedCity.city,
     value: selectedCity.id,
   }));
-
+console.log('cityOptions', cityOptions)
   const [category, setCategory] = useState(null);
   const categoryOptions = businesscatArray.map(cat => ({
     label: cat.name,
-    value: cat.id,
+    value: cat.business_id,
   }));
-
+console.log('categoryOptions', categoryOptions)
 
   const handleSearchData = async ({ keyword, city_id, category_id, page = 1 }) => {
-    if (!keyword.trim()) {
-      setSearchData([]);
-      return;
+  console.log('keyword', keyword, city_id, category_id);
+
+  try {
+    if (page === 1) {
+      setSearchData([]); // Reset on new search
+    } else {
+      setLoadingMore(true);
     }
 
-    try {
-      if (page === 1) {
-        setSearchData([]); // Reset on new search
-      } else {
-        setLoadingMore(true);
-      }
+    const res = await dispatch(
+      fetchSearchResultsSlice({ keyword, city_id, category_id, page })
+    ).unwrap();
 
-      const res = await dispatch(
-        fetchSearchResultsSlice({ keyword, city_id, category_id, page })
-      ).unwrap();
+    console.log("search data print======>", res);
 
-      console.log("search data print======>", res)
+    const result = res.data.contacts;
+    const newData = result.data || [];
 
-      const result = res.data.contacts;
-      const newData = result.data || [];
-
-      setSearchData(prev => (page === 1 ? newData : [...prev, ...newData]));
-      setPage(result.current_page);
-      setLastPage(result.last_page);
-    } catch (error) {
-      console.log('ERROR IN SEARCH ====>', error);
-    } finally {
-      setLoadingMore(false);
-    }
-  };
+    setSearchData(prev => (page === 1 ? newData : [...prev, ...newData]));
+    setPage(result.current_page);
+    setLastPage(result.last_page);
+  } catch (error) {
+    console.log('ERROR IN SEARCH ====>', error);
+  } finally {
+    setLoadingMore(false);
+  }
+};
 
 
 
-  useEffect(() => {
-    if (keyword.trim() === '') {
-      setSearchData([]);
-    }
-  }, [keyword]);
+
+  // useEffect(() => {
+  //   if (keyword.trim() === '') {
+  //     setSearchData([]);
+  //   }
+  // }, [keyword]);
 
 
 
@@ -150,7 +147,7 @@ export default function SearchScreen() {
           <View style={styles.dcontactLeft}>
             <Image
               source={{
-                uri: `https://kumharpariwar.com/storage/mycontacts/${item.image}`,
+                uri: `${item.image}`,
               }}
               style={styles.dcontactLeftImage}
             />

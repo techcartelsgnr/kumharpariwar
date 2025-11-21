@@ -90,71 +90,74 @@ const GalleryScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={COLORS.white} barStyle="dark-content" />
-      <HeaderCommon headername="Gallery" />
+      <StatusBar backgroundColor={COLORS.blue} barStyle="light-content" />
+      <View style={{flex: 1 , backgroundColor: COLORS.white}}>
+        <HeaderCommon headername="Gallery" />
 
-      <View style={{ flex: 1, backgroundColor: COLORS.white }}>
-        {loading ? (
-          <View style={styles.loaderContainer}>
-            <ActivityIndicator size="large" color={COLORS.primary} />
-            <Text style={{ marginTop: 10, color: COLORS.textcolor }}>Loading Gallery...</Text>
-          </View>
-        ) : galleryData.length === 0 ? (
-          <View style={styles.noDataContainer}>
-            <Text style={styles.noDataText}>No images available</Text>
-          </View>
-        ) : (
-          <FlatList
-            data={galleryData}
-            renderItem={renderGalleryItem}
-            keyExtractor={(item) => item.id.toString()}
-            numColumns={3}
-            contentContainerStyle={styles.galleryContainer}
-            showsVerticalScrollIndicator={false}
-          />
-        )}
-
-        {/* Image Modal */}
-        <Modal
-          visible={modalVisible}
-          transparent={true}
-          animationType="fade"
-          onRequestClose={closeImage}
-        >
-          <View style={styles.modalContainer}>
-            <TouchableOpacity style={styles.modalBackground} onPress={closeImage} />
-
-            <View style={styles.modalContent}>
-              {selectedImage && (
-                <>
-                  <View style={styles.modalImageContainer}>
-                    <Image
-                      source={{ uri: selectedImage.file_path }}
-                      style={styles.modalImage}
-                      resizeMode="contain"
-                    />
-                  </View>
-                  <View style={styles.imageInfo}>
-                    <View style={styles.textContainer}>
-                      <Text style={styles.modalTitle}>{selectedImage.title}</Text>
-                      <Text style={styles.modalDate}>
-                        {new Date(selectedImage.created_at).toDateString()}
-                      </Text>
-                    </View>
-                    <TouchableOpacity style={styles.downloadButton} onPress={handleDownload}>
-                      <Text style={styles.downloadButtonText}>⬇️ Download</Text>
-                    </TouchableOpacity>
-                  </View>
-                </>
-              )}
-
-              <TouchableOpacity style={styles.closeButton} onPress={closeImage}>
-                <Text style={styles.closeButtonText}>✕</Text>
-              </TouchableOpacity>
+       
+          {loading ? (
+            <View style={styles.loaderContainer}>
+              <ActivityIndicator size="large" color={COLORS.primary} />
+              <Text style={{ marginTop: 10, color: COLORS.textcolor }}>Loading Gallery...</Text>
             </View>
-          </View>
-        </Modal>
-      </View>
+          ) : galleryData.length === 0 ? (
+            <View style={styles.noDataContainer}>
+              <Text style={styles.noDataText}>No images available</Text>
+            </View>
+          ) : (
+            <FlatList
+              data={galleryData}
+              renderItem={renderGalleryItem}
+              keyExtractor={(item) => item.id.toString()}
+              numColumns={3}
+              contentContainerStyle={styles.galleryContainer}
+              showsVerticalScrollIndicator={false}
+            />
+          )}
+
+          {/* Image Modal */}
+          <Modal
+            visible={modalVisible}
+            transparent={true}
+            animationType="fade"
+            onRequestClose={closeImage}
+          >
+            <View style={styles.modalContainer}>
+              <TouchableOpacity style={styles.modalBackground} onPress={closeImage} />
+
+              <View style={styles.modalContent}>
+                {selectedImage && (
+                  <>
+                    <View style={styles.modalImageContainer}>
+                      <Image
+                        source={{ uri: selectedImage.file_path }}
+                        style={styles.modalImage}
+                        resizeMode="contain"
+                      />
+                    </View>
+                    <View style={styles.imageInfo}>
+                      <View style={styles.textContainer}>
+                        <Text style={styles.modalTitle}>{selectedImage.title}</Text>
+                        <Text style={styles.modalDate}>
+                          {new Date(selectedImage.created_at).toDateString()}
+                        </Text>
+                      </View>
+                      <TouchableOpacity style={styles.downloadButton} onPress={handleDownload}>
+                        <Text style={styles.downloadButtonText}>⬇️ Download</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </>
+                )}
+
+                <TouchableOpacity style={styles.closeButton} onPress={closeImage}>
+                  <Text style={styles.closeButtonText}>✕</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+        </View>
+      
+
     </SafeAreaView>
   );
 };

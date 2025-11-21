@@ -136,14 +136,14 @@ const LoginScreen = () => {
               <ButtonForLogin text={'Login'} isLoading={pending} onPress={handleLogin} />
             </View>
 
-            <View style={{ marginVertical: 15, alignItems: 'center' }}>
+            {/* <View style={{ marginVertical: 15, alignItems: 'center' }}>
               <Text style={formstyles.loginBottomHeading}>
                 अगर आप नए है इस App पर, तो रजिस्टर करें
               </Text>
               <TouchableOpacity onPress={() => navigation.navigate(navigationStrings.REGISTER)}>
                 <Text style={formstyles.loginBottomCompanyName}>Register Here</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

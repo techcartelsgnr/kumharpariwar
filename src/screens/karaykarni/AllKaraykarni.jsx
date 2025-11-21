@@ -1,12 +1,12 @@
 // AllKaraykarni.jsx
 import React, { useEffect, useState } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
-  Image, 
-  TouchableOpacity, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  TouchableOpacity,
   ActivityIndicator,
   Linking,
   Alert,
@@ -47,7 +47,7 @@ const AllKaraykarni = () => {
       setFilteredMembers(members);
     } else {
       const query = searchQuery.toLowerCase();
-      const filtered = members.filter(member => 
+      const filtered = members.filter(member =>
         member.name?.toLowerCase().includes(query) ||
         member.designation?.toLowerCase().includes(query) ||
         member.email?.toLowerCase().includes(query) ||
@@ -88,13 +88,13 @@ const AllKaraykarni = () => {
   };
 
   const handleCall = (mobile) => {
-    Linking.openURL(`tel:${mobile}`).catch(err => 
+    Linking.openURL(`tel:${mobile}`).catch(err =>
       Alert.alert('Error', 'Could not make a call')
     );
   };
 
   const handleEmail = (email) => {
-    Linking.openURL(`mailto:${email}`).catch(err => 
+    Linking.openURL(`mailto:${email}`).catch(err =>
       Alert.alert('Error', 'Could not open email')
     );
   };
@@ -106,16 +106,16 @@ const AllKaraykarni = () => {
   const MemberCard = ({ member }) => (
     <View style={styles.card}>
       <View style={styles.cardHeader}>
-        <Image 
-          source={{ uri: member.image }} 
+        <Image
+          source={{ uri: member.image }}
           style={styles.memberImage}
         />
         <View style={styles.memberInfo}>
           <Text style={styles.memberName}>{member.name}</Text>
-          <View style={[styles.designationBadge, 
-            member.designation?.toLowerCase().includes('president') && styles.presidentBadge,
-            member.designation?.toLowerCase().includes('secretary') && styles.secretaryBadge,
-            member.designation?.toLowerCase().includes('treasurer') && styles.treasurerBadge
+          <View style={[styles.designationBadge,
+          member.designation?.toLowerCase().includes('president') && styles.presidentBadge,
+          member.designation?.toLowerCase().includes('secretary') && styles.secretaryBadge,
+          member.designation?.toLowerCase().includes('treasurer') && styles.treasurerBadge
           ]}>
             <Text style={styles.designationText}>
               {member.designation || 'Member'}
@@ -127,7 +127,7 @@ const AllKaraykarni = () => {
       {member.description && (
         <Text style={styles.description}>{member.description}</Text>
       )}
-      
+
       <View style={styles.contactInfo}>
         {member.email && (
           <View style={styles.contactItem}>
@@ -145,7 +145,7 @@ const AllKaraykarni = () => {
 
       <View style={styles.actionButtons}>
         {member.mobile && (
-          <TouchableOpacity 
+          <TouchableOpacity
             style={[styles.actionButton, styles.callButton]}
             onPress={() => handleCall(member.mobile)}
           >
@@ -154,7 +154,7 @@ const AllKaraykarni = () => {
           </TouchableOpacity>
         )}
         {member.email && (
-          <TouchableOpacity 
+          <TouchableOpacity
             style={[styles.actionButton, styles.emailButton]}
             onPress={() => handleEmail(member.email)}
           >
@@ -181,86 +181,91 @@ const AllKaraykarni = () => {
   return (
     <SafeAreaView style={styles.container}>
       <HeaderCommon headername={"All Members"} />
-      
-      <ScrollView 
-        style={styles.scrollView}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            colors={[COLORS.primary]}
-            tintColor={COLORS.primary}
-          />
-        }
-      >
-        <View style={styles.content}>
-          {/* Search Bar */}
-          <View style={styles.searchContainer}>
-            <View style={styles.searchInputContainer}>
-              <Icon name="search" size={20} color={COLORS.placeholder} style={styles.searchIcon} />
-              <TextInput
-                style={styles.searchInput}
-                placeholder="Search by name, designation, email..."
-                placeholderTextColor={COLORS.placeholder}
-                value={searchQuery}
-                onChangeText={setSearchQuery}
-                returnKeyType="search"
-              />
-              {searchQuery.length > 0 && (
-                <TouchableOpacity onPress={clearSearch} style={styles.clearButton}>
-                  <Icon name="close" size={18} color={COLORS.placeholder} />
-                </TouchableOpacity>
-              )}
-            </View>
-          </View>
-
-          {members.length === 0 ? (
-            <View style={styles.emptyContainer}>
-              <Icon name="group" size={64} color={COLORS.placeholder} />
-              <Text style={styles.emptyText}>No members found</Text>
-              <Text style={styles.emptySubtext}>
-                {memberId ? `No data available for member ID: ${memberId}` : 'No member ID provided'}
-              </Text>
-              <TouchableOpacity style={styles.retryButton} onPress={fetchMembers}>
-                <Text style={styles.retryButtonText}>Try Again</Text>
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <>
-              <View style={styles.headerInfo}>
-                <Text style={styles.memberCount}>
-                  {filteredMembers.length} member{filteredMembers.length !== 1 ? 's' : ''} found
-                  {searchQuery && ` for "${searchQuery}"`}
-                </Text>
-                {searchQuery && filteredMembers.length === 0 && (
-                  <TouchableOpacity onPress={clearSearch} style={styles.clearSearchButton}>
-                    <Text style={styles.clearSearchText}>Clear Search</Text>
+      <View style={{
+        flex: 1,
+        backgroundColor: COLORS.white,
+      }}>
+        <ScrollView
+          style={styles.scrollView}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContent}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              colors={[COLORS.primary]}
+              tintColor={COLORS.primary}
+            />
+          }
+        >
+          <View style={styles.content}>
+            {/* Search Bar */}
+            <View style={styles.searchContainer}>
+              <View style={styles.searchInputContainer}>
+                <Icon name="search" size={20} color={COLORS.placeholder} style={styles.searchIcon} />
+                <TextInput
+                  style={styles.searchInput}
+                  placeholder="Search by name, designation, email..."
+                  placeholderTextColor={COLORS.placeholder}
+                  value={searchQuery}
+                  onChangeText={setSearchQuery}
+                  returnKeyType="search"
+                />
+                {searchQuery.length > 0 && (
+                  <TouchableOpacity onPress={clearSearch} style={styles.clearButton}>
+                    <Icon name="close" size={18} color={COLORS.placeholder} />
                   </TouchableOpacity>
                 )}
               </View>
-              
-              {filteredMembers.length === 0 && searchQuery ? (
-                <View style={styles.noResultsContainer}>
-                  <Icon name="search-off" size={48} color={COLORS.placeholder} />
-                  <Text style={styles.noResultsText}>No members found</Text>
-                  <Text style={styles.noResultsSubtext}>
-                    Try adjusting your search terms
+            </View>
+
+            {members.length === 0 ? (
+              <View style={styles.emptyContainer}>
+                <Icon name="group" size={64} color={COLORS.placeholder} />
+                <Text style={styles.emptyText}>No members found</Text>
+                <Text style={styles.emptySubtext}>
+                  {memberId ? `No data available for member ID: ${memberId}` : 'No member ID provided'}
+                </Text>
+                <TouchableOpacity style={styles.retryButton} onPress={fetchMembers}>
+                  <Text style={styles.retryButtonText}>Try Again</Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <>
+                <View style={styles.headerInfo}>
+                  <Text style={styles.memberCount}>
+                    {filteredMembers.length} member{filteredMembers.length !== 1 ? 's' : ''} found
+                    {searchQuery && ` for "${searchQuery}"`}
                   </Text>
-                  <TouchableOpacity onPress={clearSearch} style={styles.clearSearchButton}>
-                    <Text style={styles.clearSearchText}>Clear Search</Text>
-                  </TouchableOpacity>
+                  {searchQuery && filteredMembers.length === 0 && (
+                    <TouchableOpacity onPress={clearSearch} style={styles.clearSearchButton}>
+                      <Text style={styles.clearSearchText}>Clear Search</Text>
+                    </TouchableOpacity>
+                  )}
                 </View>
-              ) : (
-                filteredMembers.map((member) => (
-                  <MemberCard key={member.id} member={member} />
-                ))
-              )}
-            </>
-          )}
-        </View>
-      </ScrollView>
+
+                {filteredMembers.length === 0 && searchQuery ? (
+                  <View style={styles.noResultsContainer}>
+                    <Icon name="search-off" size={48} color={COLORS.placeholder} />
+                    <Text style={styles.noResultsText}>No members found</Text>
+                    <Text style={styles.noResultsSubtext}>
+                      Try adjusting your search terms
+                    </Text>
+                    <TouchableOpacity onPress={clearSearch} style={styles.clearSearchButton}>
+                      <Text style={styles.clearSearchText}>Clear Search</Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : (
+                  filteredMembers.map((member) => (
+                    <MemberCard key={member.id} member={member} />
+                  ))
+                )}
+              </>
+            )}
+          </View>
+        </ScrollView>
+      </View>
+
     </SafeAreaView>
   );
 };

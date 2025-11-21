@@ -6,7 +6,6 @@ import {
     ScrollView,
     TouchableOpacity,
     Linking,
-    SafeAreaView,
     Dimensions,
 } from 'react-native';
 import React from 'react';
@@ -17,6 +16,7 @@ import HeaderCommon from '../../components/HeaderCommon';
 import RenderHtml from 'react-native-render-html';
 import { screenHeight, screenWidth } from '../../utils/constent';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const HostelsDetailsScreen = ({ route }) => {
     const { hostelDetails } = route.params;
@@ -33,7 +33,7 @@ const HostelsDetailsScreen = ({ route }) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
             <HeaderCommon headername={'Hostel Details'} />
-            <View style={{ flex: 1, backgroundColor: COLORS.bg }}>
+            <View style={{ flex: 1, backgroundColor: COLORS.white }}>
 
                 <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
                     <Image source={{ uri: hostelDetails.image }} style={styles.image} />
@@ -88,7 +88,7 @@ export default HostelsDetailsScreen;
 
 const styles = StyleSheet.create({
     container: {
-        paddingBottom: screenHeight * 3,
+        paddingBottom: screenHeight * 1,
         backgroundColor: COLORS.bg,
     },
     image: {

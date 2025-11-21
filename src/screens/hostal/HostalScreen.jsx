@@ -1,6 +1,5 @@
 
 import {
-    SafeAreaView,
     StyleSheet,
     Text,
     View,
@@ -18,6 +17,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { getAllHostalSlice } from '../../redux/slices/homeSlice';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 const HostalScreen = () => {
     const dispatch = useDispatch();
@@ -37,45 +38,41 @@ const HostalScreen = () => {
     };
 
     const getAllGuestHouse = async (pageNumber = 1) => {
-        if (loading || !hasMore) return;
-    
-        setLoading(true);
-        try {
-            const res = await dispatch(getAllHostalSlice(pageNumber)).unwrap();
-            const data = res?.data?.hostel;
-    
-            console.log("get house data=======>", data);
-    
-            if (data?.data?.length > 0) {
-                if (pageNumber === 1) {
-                    setGuestHouses(data.data);
-                } else {
-                    setGuestHouses(prev => [...prev, ...data.data]);
-                }
-    
-                // ✅ Check if it's the last page
-                if (data.current_page >= data.last_page) {
-                    setHasMore(false); // No more pages
-                } else {
-                    setPage(pageNumber + 1); // Load next page
-                }
+    setLoading(true);
+    try {
+        const res = await dispatch(getAllHostalSlice(pageNumber)).unwrap();
+        const data = res?.data?.hostel;
+
+        if (data?.data?.length > 0) {
+            if (pageNumber === 1) {
+                setGuestHouses(data.data);
             } else {
-                setHasMore(false);
+                setGuestHouses(prev => [...prev, ...data.data]);
             }
-        } catch (error) {
-            console.log('Pagination Error:', error);
-        } finally {
-            setLoading(false);
+
+            if (data.current_page >= data.last_page) {
+                setHasMore(false);
+            } else {
+                setPage(pageNumber + 1);
+            }
+        } else {
+            setHasMore(false);
         }
-    };
+    } catch (error) {
+        console.log('Pagination Error:', error);
+    } finally {
+        setLoading(false);
+    }
+};
+
 
   
 
-    useFocusEffect(useCallback(()=>{
+    useEffect(()=>{
         setGuestHouses([])
         getAllGuestHouse(1);
 
-    },[]))
+    },[]);
 
 
 
@@ -116,7 +113,7 @@ const HostalScreen = () => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
             <HeaderCommon headername={'Hostel'} />
-            <View style={{ flex: 1, backgroundColor: COLORS.bg, padding: 10 }}>
+            <View style={{ flex: 1, backgroundColor: COLORS.white, padding: 10 }}>
                 <FlatList
                     data={guestHouses}
                     renderItem={renderItem}
