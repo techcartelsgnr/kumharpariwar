@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     Linking,
     Dimensions,
+    Alert
 } from 'react-native';
 import React from 'react';
 import { COLORS } from '../../theme/theme';
@@ -26,9 +27,30 @@ const HostelsDetailsScreen = ({ route }) => {
         Linking.openURL(`https://wa.me/${number}`);
     };
 
-    const makeCall = number => {
-        Linking.openURL(`tel:${number}`);
-    };
+  const makeCall = async (number) => {
+  if (!number) {
+    Alert.alert("Error", "Phone number missing");
+    return;
+  }
+
+  const url = `tel:${number}`;
+
+  try {
+    const supported = await Linking.canOpenURL(url);
+
+    if (!supported) {
+      Alert.alert(
+        "Cannot make call",
+        "Calling is not supported on this device."
+      );
+      return;
+    }
+
+    await Linking.openURL(url);
+  } catch (error) {
+    Alert.alert("Error", "Failed to open dialer.");
+  }
+};
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
@@ -88,7 +110,7 @@ export default HostelsDetailsScreen;
 
 const styles = StyleSheet.create({
     container: {
-        paddingBottom: screenHeight * 1,
+        // paddingBottom: screenHeight * 1,
         backgroundColor: COLORS.bg,
     },
     image: {

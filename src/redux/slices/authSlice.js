@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import commanServices from '../services/commanServices';
 // import {act} from 'react-test-renderer';
 import authService from '../services/authServices';
@@ -28,7 +28,7 @@ export const chkLogin = createAsyncThunk('auth/chkLogin', async thunkAPI => {
     const user = await AsyncStorage.getItem('user_info');
     const first = await AsyncStorage.getItem('firstTime');
 
-    const tmp_user = {user: user, firstTime: first};
+    const tmp_user = { user: user, firstTime: first };
     return tmp_user;
   } catch (e) {
     const message =
@@ -41,10 +41,10 @@ export const chkLogin = createAsyncThunk('auth/chkLogin', async thunkAPI => {
 
 export const fetchLogin = createAsyncThunk(
   'auth/login',
-  async ({mobile, password , fcmToken}, thunkAPI) => {
+  async ({ mobile, password, fcmToken }, thunkAPI) => {
     try {
-     
-     const res = await authService.login({mobile, password , fcmToken});
+
+      const res = await authService.login({ mobile, password, fcmToken });
       return res
     } catch (e) {
       console.log('in catch', e);
@@ -60,7 +60,7 @@ export const fetchLogin = createAsyncThunk(
 // Register here
 export const register = createAsyncThunk(
   'auth/register',
-  async ({name, email, mobile, password, refCode, otp}, thunkAPI) => {
+  async ({ name, email, mobile, password, refCode, otp, fcmToken }, thunkAPI) => {
     try {
       return await authService.register({
         name,
@@ -69,6 +69,7 @@ export const register = createAsyncThunk(
         password,
         refCode,
         otp,
+        fcmToken,
       });
     } catch (e) {
       console.log('in catch');
@@ -84,7 +85,7 @@ export const register = createAsyncThunk(
 // Get OTP here
 export const getotp = createAsyncThunk(
   'auth/getotp',
-  async ({email, mobile, password}, thunkAPI) => {
+  async ({ email, mobile, password }, thunkAPI) => {
     try {
       return await authService.getotp({
         email,
@@ -104,7 +105,7 @@ export const getotp = createAsyncThunk(
 // Resend OTP here
 export const ResendOtp = createAsyncThunk(
   'auth/resendOtp',
-  async ({mobile}, thunkAPI) => {
+  async ({ mobile }, thunkAPI) => {
     try {
       return await authService.ResendOtp({
         mobile,
@@ -124,10 +125,10 @@ export const ResendOtp = createAsyncThunk(
 
 export const logout = createAsyncThunk(
   'auth/logout',
-  async ({token}, thunkAPI) => {
+  async ({ token }, thunkAPI) => {
     console.log('Logout Token=>' + token);
     try {
-      return await authService.logout({token});
+      return await authService.logout({ token });
     } catch (e) {
       console.log('in catch');
       const message =
@@ -140,9 +141,9 @@ export const logout = createAsyncThunk(
 );
 export const changePassword = createAsyncThunk(
   'auth/changePassword',
-  async ({token, old_pin, new_pin}, thunkAPI) => {
+  async ({ token, old_pin, new_pin }, thunkAPI) => {
     try {
-      return await authService.changePassword({token, old_pin, new_pin});
+      return await authService.changePassword({ token, old_pin, new_pin });
     } catch (e) {
       console.log('in catch');
       const message =
@@ -170,9 +171,9 @@ export const resetPassword = createAsyncThunk(
 );
 export const updateProfilePic = createAsyncThunk(
   'auth/updateProfilePic',
-  async ({token, formData}, thunkAPI) => {
+  async ({ token, formData }, thunkAPI) => {
     try {
-      return await authService.updateProfilePic({token, formData});
+      return await authService.updateProfilePic({ token, formData });
     } catch (e) {
       console.log('in catch');
       const message =
@@ -188,9 +189,9 @@ export const updateProfilePic = createAsyncThunk(
 // suggetion
 export const suggestions = createAsyncThunk(
   'auth/suggestions',
-  async ({token, service_type, suggestion}, thunkAPI) => {
+  async ({ token, service_type, suggestion }, thunkAPI) => {
     try {
-      return await authService.suggestions({token, service_type, suggestion});
+      return await authService.suggestions({ token, service_type, suggestion });
     } catch (e) {
       const message =
         (e.response && e.response.data && e.response.data.message) ||

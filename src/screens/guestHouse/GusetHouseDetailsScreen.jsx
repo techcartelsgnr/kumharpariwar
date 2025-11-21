@@ -89,7 +89,7 @@ export default GuestHouseDetailsScreen;
 
 const styles = StyleSheet.create({
     container: {
-        paddingBottom: screenHeight * 1,
+        // paddingBottom: screenHeight * 1,
         backgroundColor: COLORS.bg,
     },
     image: {
@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
         fontSize: RFValue(12),
         color: '#333',
         marginBottom: screenHeight,
+        textTransform: 'capitalize'
     },
     infoRow: {
         flexDirection: 'row',

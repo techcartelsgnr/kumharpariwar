@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   ScrollView,
   RefreshControl,
-  SafeAreaView,
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
@@ -22,6 +21,7 @@ import HeaderCommon from '../../components/HeaderCommon';
 import { screenHeight } from '../../utils/constent';
 import { fetchBusinessCategoriesSlice } from '../../redux/slices/homeSlice';
 import Toast from 'react-native-toast-message';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const numColumns = 4;
 const formatData = (data, numColumns) => {
@@ -77,7 +77,7 @@ const AllBusinessScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
-      <StatusBarPage />
+      {/* <StatusBarPage /> */}
       {/* <HeaderCommon headername="All Categories" /> */}
       <HeaderCommon headername="All Categories" />
       <View style={{ backgroundColor: COLORS.white, flex: 1 }}>

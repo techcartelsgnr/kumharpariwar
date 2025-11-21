@@ -80,11 +80,11 @@ const GalleryScreen = () => {
       onPress={() => openImage(item)}
     >
       <Image source={{ uri: item.file_path }} style={styles.galleryImage} />
-      <View style={styles.imageOverlay}>
+      {/* <View style={styles.imageOverlay}>
         <Text style={styles.imageTitle} numberOfLines={1}>
           {item.title || 'Untitled'}
         </Text>
-      </View>
+      </View> */}
     </TouchableOpacity>
   );
 
@@ -137,9 +137,9 @@ const GalleryScreen = () => {
                     </View>
                     <View style={styles.imageInfo}>
                       <View style={styles.textContainer}>
-                        <Text style={styles.modalTitle}>{selectedImage.title}</Text>
+                        <Text style={styles.modalTitle}></Text>
                         <Text style={styles.modalDate}>
-                          {new Date(selectedImage.created_at).toDateString()}
+                          {/* {new Date(selectedImage.created_at).toDateString()} */}
                         </Text>
                       </View>
                       <TouchableOpacity style={styles.downloadButton} onPress={handleDownload}>

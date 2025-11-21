@@ -2,7 +2,7 @@ import axios from 'axios';
 import Toast from 'react-native-toast-message';
 
 const authAxios = axios.create({
-  baseURL: 'https://kumharpariwar.synergixtechnologies.com/api/',
+  baseURL: 'https://kumharpariwar.com/api/',
   headers: {
     'Content-Type': 'application/json',
     'Acess-Control-Allow-Origin': '*',
@@ -25,7 +25,7 @@ const getSlider = async ({token}) => {
     console.log(object.image);
     imgArray[index] = {
       id: index,
-      img: `https://kumharpariwar.synergixtechnologies.com/storage/slider/${object.image}`,
+      img: `https://kumharpariwar.com/storage/slider/${object.image}`,
     };
     console.log(imgArray);
   });

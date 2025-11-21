@@ -151,7 +151,7 @@ export default HostalScreen;
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: COLORS.white,
+        backgroundColor: "#ccc",
         borderRadius: 12,
         marginBottom: 15,
         overflow: 'hidden',

@@ -38,29 +38,29 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { pending } = useSelector(state => state.auth);
- const [fcmToken, setFcmToken] = useState('');
+  const [fcmToken, setFcmToken] = useState('');
   const [mobile, setMobile] = useState('');
   const [password, setPassword] = useState('');
 
 
- useEffect(() => {
-  (async () => {
-    if (Platform.OS === 'android' && Platform.Version >= 33) {
-      await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
-    }
-
-    const messaging = getMessaging(getApp());
-    const authStatus = await requestPermission(messaging);
-    const enabled = authStatus === 1 || authStatus === 2;
-    if (enabled) {
-      const token = await fetchFCMToken();
-      if (token) {
-        setFcmToken(token);
-        console.log('✅ Saved FCM Token:', token);
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS === 'android' && Platform.Version >= 33) {
+        await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
       }
-    }
-  })();
-}, []);
+
+      const messaging = getMessaging(getApp());
+      const authStatus = await requestPermission(messaging);
+      const enabled = authStatus === 1 || authStatus === 2;
+      if (enabled) {
+        const token = await fetchFCMToken();
+        if (token) {
+          setFcmToken(token);
+          console.log('✅ Saved FCM Token:', token);
+        }
+      }
+    })();
+  }, []);
   // ✅ Separate handler function for login logic
   const handleLogin = async () => {
     if (mobile == "") {
@@ -71,7 +71,7 @@ const LoginScreen = () => {
     }
 
     try {
-      const res = await dispatch(fetchLogin({ mobile, password , fcmToken })).unwrap();
+      const res = await dispatch(fetchLogin({ mobile, password, fcmToken })).unwrap();
       console.log('res', res);
 
       // ✅ Check for error response from backend
@@ -136,14 +136,14 @@ const LoginScreen = () => {
               <ButtonForLogin text={'Login'} isLoading={pending} onPress={handleLogin} />
             </View>
 
-            {/* <View style={{ marginVertical: 15, alignItems: 'center' }}>
+            <View style={{ marginVertical: 15, alignItems: 'center' }}>
               <Text style={formstyles.loginBottomHeading}>
                 अगर आप नए है इस App पर, तो रजिस्टर करें
               </Text>
               <TouchableOpacity onPress={() => navigation.navigate(navigationStrings.REGISTER)}>
                 <Text style={formstyles.loginBottomCompanyName}>Register Here</Text>
               </TouchableOpacity>
-            </View> */}
+            </View>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

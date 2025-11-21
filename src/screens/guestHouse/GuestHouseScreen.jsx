@@ -93,7 +93,7 @@ useEffect(()=>{
             <Text style={styles.desc}>{item.city}, {item.state}</Text>
       
             <Text style={styles.desc}>
-              Contact Person: <Text style={{ fontWeight: 'bold' }}>{item.contact_person}</Text>
+              Contact Person: <Text style={{ fontWeight: 'bold', textTransform: 'capitalize' }}>{item.contact_person}</Text>
             </Text>
       
             <View style={styles.contactRow}>
@@ -156,45 +156,61 @@ export default GuestHouseScreen;
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: COLORS.white,
-        borderRadius: 12,
-        marginBottom: 15,
-        overflow: 'hidden',
-        elevation: 3,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
+        backgroundColor: "#E5E7EB",
+        borderRadius: 14,
+        marginBottom: 18,
+        overflow: "hidden",
+        shadowColor: "#000",
+        shadowOpacity: 0.10,
+        shadowRadius: 6,
+        shadowOffset: { width: 0, height: 2 },
+        elevation: 4,
     },
+
     image: {
-        width: '100%',
+        width: "100%",
         height: 180,
-        resizeMode: 'cover',
+        resizeMode: "cover",
     },
+
     details: {
-        padding: 12,
+        padding: 14,
     },
+
     title: {
         fontSize: 18,
-        fontWeight: 'bold',
-        color: COLORS.black,
+        fontWeight: "700",
+        color: "#1A1A1A",   // clean black
         marginBottom: 6,
     },
+
     desc: {
         fontSize: 14,
-        color: '#555',
-        marginBottom: 10,
+        color: "#6B7280",   // soft gray
+        marginBottom: 8,
     },
+
     contactRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 6,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems:"center",
+        marginTop: 10,
+        // paddingTop: 8,
+        paddingTop: 14,
+        // paddingVertical:5,
+        borderTopWidth: 1,
+        borderTopColor: "#ccc", // very light grey line
     },
+
     iconText: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        flexDirection: "row",
+        alignItems: "center",
     },
+
     contactText: {
         fontSize: 14,
-        color: COLORS.primary,
+        fontWeight: "600",
+        color: "#1D4ED8",   // modern blue
     },
 });
+

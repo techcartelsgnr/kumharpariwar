@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const repoAxios = axios.create({
-  baseURL: 'https://kumharpariwar.synergixtechnologies.com/api/',
+  baseURL: 'https://kumharpariwar.com/api/',
   headers: {
     'Content-Type': 'application/json',
     'Acess-Control-Allow-Origin': '*',

@@ -11,17 +11,18 @@ import {
   FlatList,
   RefreshControl,
 } from 'react-native';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../../theme/theme';
 import HeaderCommon from '../../components/HeaderCommon';
-import StatusBarPage from '../../components/StatusBarPage';
 import { screenHeight, screenWidth } from '../../utils/constent';
 import { useFocusEffect } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchListingBySubCatSlice } from '../../redux/slices/homeSlice';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function DirectoryContact({ route }) {
+
   const openDialer = (phoneNumber) => {
     Linking.openURL(`tel:${phoneNumber}`);
   };
@@ -36,7 +37,7 @@ export default function DirectoryContact({ route }) {
           return Linking.openURL(url);
         }
       })
-      .catch((err) => console.error('An error occurred', err));
+      .catch((err) => console.error('Error opening WhatsApp:', err));
   };
 
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ export default function DirectoryContact({ route }) {
   const fetchContacts = async (page = 1, isRefresh = false) => {
     try {
       if (!isRefresh) setLoading(true);
+
       const res = await dispatch(fetchListingBySubCatSlice({ subcat_id, page })).unwrap();
       const responseData = res.data.contacts;
 
@@ -62,6 +64,7 @@ export default function DirectoryContact({ route }) {
       } else {
         setSubCategoryData(prev => [...prev, ...responseData.data]);
       }
+
     } catch (error) {
       console.log("Error fetching contact list:", error);
     } finally {
@@ -84,10 +87,8 @@ export default function DirectoryContact({ route }) {
   };
 
   const loadMore = () => {
-    const hasMore = currentPage < lastPage;
-    if (hasMore && !loading) {
-      const nextPage = currentPage + 1;
-      fetchContacts(nextPage);
+    if (currentPage < lastPage && !loading) {
+      fetchContacts(currentPage + 1);
     }
   };
 
@@ -99,31 +100,30 @@ export default function DirectoryContact({ route }) {
     ) : null;
   };
 
-  const renderItem = ({ item: contact }) => (
-
-    <View key={contact.id} style={styles.dcontactsBox}>
+  const renderItem = ({ item }) => (
+    <View key={item.id} style={styles.dcontactsBox}>
       <View style={styles.dcontactsLists}>
         <View style={styles.dcontactLeft}>
           <Image
-            source={{ uri: contact.image }}
+            source={{ uri: item.image }}
             style={styles.dcontactLeftImage}
           />
         </View>
 
         <View style={styles.dcontactRight}>
-          <Text style={styles.dcontactPersonName}>{contact.name}</Text>
-          <Text style={styles.dcontactPostingName}>{contact.designation}</Text>
-          <Text style={styles.dcontactPostingName}>{contact.location}</Text>
+          <Text style={styles.dcontactPersonName}>{item.name}</Text>
+          <Text style={styles.dcontactPostingName}>{item.designation}</Text>
+          <Text style={styles.dcontactPostingName}>{item.location}</Text>
 
           <View style={styles.dcontactRightSocial}>
             <TouchableOpacity
-              onPress={() => openDialer(contact.call)}
+              onPress={() => openDialer(item.call)}
               style={styles.dcontactSocialIcon}>
               <Ionicons name="call" style={styles.businessSubCatIcon} />
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => openWhatsApp(contact.call, 'I Found Your Number From Kumhar Pariwar App')}
+              onPress={() => openWhatsApp(item.call, 'I Found Your Number From Kumhar Pariwar App')}
               style={[styles.dcontactSocialIcon, { backgroundColor: COLORS.green }]}>
               <Ionicons name="logo-whatsapp" style={styles.businessSubCatIcon} />
             </TouchableOpacity>
@@ -131,56 +131,46 @@ export default function DirectoryContact({ route }) {
         </View>
       </View>
     </View>
-
   );
+
+  const isEmpty = subCategoryData.length === 0 && !loading && !refreshing;
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.blue }}>
-      {/* <StatusBarPage /> */}
       <HeaderCommon headername={headerName} />
+
       <View style={{ backgroundColor: '#eee', flex: 1 }}>
-        <View style={[styles.listingAllcontent, { backgroundColor: "#eee" }]}>
-          {!subCategoryData.length && !loading ? (
-            <View style={styles.centeredContainer}>
-              <Text style={styles.noRecordText}>No Record Found</Text>
-            </View>
-          ) : (
-            <FlatList
-              data={subCategoryData}
-              renderItem={renderItem}
-              keyExtractor={(item, index) => `${item.id}-${index}`}
-              numColumns={1}
-              showsVerticalScrollIndicator={true}
-              ListFooterComponent={renderLoader}
-              onEndReached={() => {
-                const hasMore = currentPage < lastPage;
-                if (hasMore && !loading) {
-                  loadMore();
-                }
-              }}
-              contentContainerStyle={{
-                paddingBottom: Platform.OS === 'android' ? screenHeight * 5 : screenHeight * 3
-              }}
-              onEndReachedThreshold={0.2}
-              refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-              }
-            />
-          )}
-        </View>
+        {isEmpty ? (
+          <View style={styles.centeredContainer}>
+            <Text style={styles.noRecordText}>No Record Found</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={subCategoryData}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => `${item.id}-${index}`}
+            showsVerticalScrollIndicator={true}
+            ListFooterComponent={renderLoader}
+            onEndReached={loadMore}
+            onEndReachedThreshold={0.2}
+
+            contentContainerStyle={{
+              flexGrow: subCategoryData.length === 0 ? 1 : 0,
+              paddingBottom:
+                Platform.OS === 'android' ? screenHeight * 5 : screenHeight * 3,
+            }}
+
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          />
+        )}
       </View>
     </SafeAreaView>
   );
 }
 
-
-
-
-
-
-
 const styles = StyleSheet.create({
-
   dcontactsBox: {
     marginHorizontal: 10,
     marginTop: 10,
@@ -200,7 +190,6 @@ const styles = StyleSheet.create({
     height: screenWidth * 15,
     resizeMode: 'cover',
   },
-
   dcontactPersonName: {
     fontSize: 16,
     fontWeight: 'bold',
@@ -217,11 +206,10 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     justifyContent: 'center',
   },
-
   dcontactRightSocial: {
     flexDirection: 'row',
     marginTop: 10,
-    gap: screenWidth * 4, // or use `marginRight` inside buttons
+    gap: screenWidth * 4,
   },
   dcontactSocialIcon: {
     backgroundColor: COLORS.primary,
@@ -234,26 +222,17 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontSize: 14,
   },
-  paginationContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    gap: 5,
-    paddingBottom: screenHeight * 4
-  },
-  navButton: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    backgroundColor: COLORS.blue,
-    borderRadius: 6,
-  },
-  navText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
   centeredContainer: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  noRecordText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#888',
+  },
+  loaderContainer: {
+    paddingVertical: 20,
   },
 });

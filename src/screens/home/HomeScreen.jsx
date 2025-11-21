@@ -58,7 +58,7 @@ const HomeScreen = () => {
   useEffect(() => {
     onRefresh();
   }, []);
-  const baseUrl = 'https://kumharpariwar.synergixtechnologies.com/';
+  const baseUrl = 'https://kumharpariwar.com/';
   console.log('refessalreferMessage', referMessage)
 
   const getFullImageUrl = (path) => {

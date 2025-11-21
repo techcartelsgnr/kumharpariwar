@@ -18,6 +18,7 @@ export const fetchFCMToken = async () => {
     const token = await getMessagingToken(messaging);
     if (token) {
       console.log('✅ FCM Token:', token);
+      return token
       // Send token to your server
     } else {
       console.log('⚠️ FCM Token is null');

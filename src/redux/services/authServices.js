@@ -4,7 +4,7 @@ import messaging from '@react-native-firebase/messaging';
 // import PushNotification, {Importance} from 'react-native-push-notification';
 
 const authAxios = axios.create({
-  baseURL: 'https://kumharpariwar.synergixtechnologies.com/api/',
+  baseURL: 'https://kumharpariwar.com/api/',
   headers: {
     'Content-Type': 'application/json',
     'Acess-Control-Allow-Origin': '*',
@@ -36,7 +36,7 @@ const login = async ({mobile, password, fcmToken}) => {
   return response.data;
 };
 
-const register = async ({name, email, mobile, password, refCode, otp}) => {
+const register = async ({name, email, mobile, password, refCode, otp,fcmToken}) => {
   const response = await authAxios.post(`/register`, {
     name: name,
     email: email,
@@ -44,6 +44,7 @@ const register = async ({name, email, mobile, password, refCode, otp}) => {
     pin: password,
     referred_by: refCode,
     otp: otp,
+    fcm_token : fcmToken
   });
   if (response.data.errors === undefined) {
     console.log('i m in register');
@@ -126,7 +127,7 @@ const resetPassword = async ({ mobile, otp, password }) => {
 const updateProfilePic = async ({token, formData}) => {
   const response = await axios({
     method: 'post',
-    url: 'https://kumharpariwar.synergixtechnologies.com/api/user_image',
+    url: 'https://kumharpariwar.com/api/user_image',
     data: formData,
     headers: {
       'Content-Type': 'multipart/form-data',

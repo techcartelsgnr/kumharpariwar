@@ -3,32 +3,44 @@
  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+
 	<key>CFBundleDisplayName</key>
 	<string>KumharPariwar</string>
+
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
+
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
+
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+
 	<key>CFBundleSignature</key>
 	<string>????</string>
+
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 
-	<!-- 🔒 App Transport Security -->
+	<!-- 🌐 App Transport -->
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -37,15 +49,15 @@
 		<true/>
 	</dict>
 
-	<!-- 📍 Location Permissions -->
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app uses your location to show nearby services and improve user experience.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>We use your location to provide better location-based services.</string>
-
-	<!-- 🔔 Notification Permissions -->
-	<key>NSUserTrackingUsageDescription</key>
-	<string>This app uses notifications to keep you informed about important updates and offers.</string>
+	<!-- ✅ Merged LSApplicationQueriesSchemes (Correct Block) -->
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>whatsapp</string>
+		<string>whatsapp-messenger</string>
+		<string>whatsapp-api</string>
+		<string>tel</string>
+		<string>telprompt</string>
+	</array>
 
 	<!-- 📸 Camera -->
 	<key>NSCameraUsageDescription</key>
@@ -55,11 +67,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app needs access to your photo library to select and upload images.</string>
 
-	<!-- 🎤 Microphone -->
-	<key>NSMicrophoneUsageDescription</key>
-	<string>This app needs access to your microphone for recording audio.</string>
-
-	<!-- 💾 Files / Storage -->
+	<!-- 💾 Documents -->
 	<key>NSDocumentsFolderUsageDescription</key>
 	<string>This app uses file access to save and share documents securely.</string>
 
@@ -68,23 +76,25 @@
 
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>arm64</string>
 	</array>
+
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 
-	<!-- 🧩 Custom & Vector Icon Fonts (merged) -->
+	<!-- 🧩 App Fonts -->
 	<key>UIAppFonts</key>
 	<array>
-		<!-- Custom Fonts -->
 		<string>Baloo2-Bold.ttf</string>
 		<string>Baloo2-Medium.ttf</string>
 		<string>Baloo2-Regular.ttf</string>
@@ -120,5 +130,6 @@
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
 	</array>
+
 </dict>
 </plist>

@@ -32,13 +32,13 @@ const styles = StyleSheet.create({
   headerTopText: {
     color: '#fefefe',
     fontFamily: 'Baloo2-Bold',
-    fontSize: RFValue(9),
+    fontSize: RFValue(11),
   },
   headerText: {
     color: '#fefefe',
     paddingLeft: screenWidth,
     fontFamily: 'Baloo2-Bold',
-    fontSize: RFValue(9),
+    fontSize: RFValue(12),
   },
   HederIcon: {
     color: COLORS.lightyellow,

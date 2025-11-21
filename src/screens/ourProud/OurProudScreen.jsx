@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
   },
   ourProudsBox: {
     marginHorizontal: 10,
-    marginTop: 10,
+    // marginTop: 10,
 
   },
   ourProudsLists: {
